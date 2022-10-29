@@ -11,16 +11,16 @@ struct FLightResourceData
 {
 	GENERATED_BODY()
 
-	UPROPERTY(BlueprintReadOnly, Category="EntityResourceLight")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="EntityResourceLight")
 	int32 Value = 100;
 	
-	UPROPERTY(BlueprintReadWrite, Category="EntityResourceLight", meta=(ClampMin="0"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="EntityResourceLight", meta=(ClampMin="0"))
 	int32 MaxValue = 100;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="EntityResourceLight", meta=(InlineEditConditionToggle))
 	bool bCustomInitialValue = false;
 
-	UPROPERTY(BlueprintReadWrite, Category="EntityResourceLight", meta=(EditCondition="bCustomInitialValue", ClampMin="0"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="EntityResourceLight", meta=(EditCondition="bCustomInitialValue", ClampMin="0"))
 	int32 InitialValue = 100;	
 };
 
@@ -49,6 +49,12 @@ public:
 
 	UFUNCTION(BlueprintPure, Category="EntityResources|Light")
 	float GetNormalisedValue() const;
+	
+	UFUNCTION(BlueprintPure, Category="EntityResources|Light")
+	int32 GetValue() const;
+
+	UFUNCTION(BlueprintPure, Category="EntityResources|Light")
+	int32 GetMaxValue() const;
 
 	void SetResourceData(const FLightResourceData& Data);
 private:

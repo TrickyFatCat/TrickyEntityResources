@@ -86,6 +86,16 @@ float UEntityResourceLight::GetNormalisedValue() const
 	return ResourceData.Value / ResourceData.MaxValue;
 }
 
+int32 UEntityResourceLight::GetValue() const
+{
+	return ResourceData.Value;
+}
+
+int32 UEntityResourceLight::GetMaxValue() const
+{
+	return ResourceData.MaxValue;
+}
+
 void UEntityResourceLight::SetResourceData(const FLightResourceData& Data)
 {
 	ResourceData = Data;
