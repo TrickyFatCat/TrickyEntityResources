@@ -21,11 +21,11 @@ void UEntityResource::DecreaseValue(float Amount)
 
 	ResourceData.Value -= Amount;
 	ResourceData.Value = FMath::Max(ResourceData.Value, 0.f);
-	// TODO Call delegate
+	OnValueDecreased.Broadcast(ResourceData.Value, Amount);
 
 	if (ResourceData.Value <= 0.f)
 	{
-		// TODO Call delegate
+		OnValueZero.Broadcast();
 	}
 	else
 	{
@@ -47,7 +47,7 @@ void UEntityResource::IncreaseValue(const float Amount, const bool bClampToMax)
 		ResourceData.Value = FMath::Min(ResourceData.Value, ResourceData.MaxValue);
 	}
 
-	// TODO Call delegate
+	OnValueIncreased.Broadcast(ResourceData.Value, Amount);
 	StartAutoDecrease();
 }
 
@@ -60,7 +60,7 @@ void UEntityResource::DecreaseMaxValue(float Amount, const bool bClampValue)
 
 	ResourceData.MaxValue -= Amount;
 	ResourceData.MaxValue = FMath::Max(ResourceData.MaxValue, 0.f);
-	// TODO Call delegate
+	OnMaxValueDecreased.Broadcast(ResourceData.MaxValue, Amount);
 
 	if (bClampValue && ResourceData.Value > ResourceData.MaxValue)
 	{
@@ -77,12 +77,16 @@ void UEntityResource::IncreaseMaxValue(float Amount, const bool bClampValue)
 	}
 
 	ResourceData.MaxValue += Amount;
-	// TODO Call delegate
+	OnMaxValueIncreased.Broadcast(ResourceData.MaxValue, Amount);
 
 	if (bClampValue)
 	{
 		Amount = FMath::Abs(ResourceData.MaxValue - ResourceData.Value);
 		ResourceData.Value > ResourceData.MaxValue ? DecreaseValue(Amount) : IncreaseValue(Amount);
+	}
+	else
+	{
+		ResourceData.Value > ResourceData.MaxValue ? StartAutoDecrease() : StartAutoIncrease();
 	}
 }
 
@@ -120,7 +124,7 @@ void UEntityResource::GetResourceData(FResourceData& Data) const
 void UEntityResource::SetAutoIncreaseEnabled(const bool bIsEnabled)
 {
 	AutoIncreaseData.bIsEnabled = bIsEnabled;
-	
+
 	bIsEnabled ? StartAutoIncrease() : StopTimer(AutoIncreaseTimer);
 }
 
@@ -155,19 +159,20 @@ void UEntityResource::GetAutoDecreaseData(FResourceAutoData& Data)
 	Data = AutoDecreaseData;
 }
 
-void UEntityResource::StopTimer(FTimerHandle& TimerHandle) const
+void UEntityResource::StartAutoDecrease()
 {
-	if (!GetWorld())
+	if (!AutoDecreaseData.bIsEnabled || GetNormalisedValue() <= AutoDecreaseData.Threshold || !GetWorld())
 	{
 		return;
 	}
 
-	FTimerManager& TimerManager = GetWorld()->GetTimerManager();
-
-	if (TimerManager.TimerExists(TimerHandle))
-	{
-		TimerManager.ClearTimer(TimerHandle);
-	}
+	StopTimer(AutoDecreaseTimer);
+	GetWorld()->GetTimerManager().SetTimer(AutoDecreaseTimer,
+	                                       this,
+	                                       &UEntityResource::ProcessAutoDecrease,
+	                                       AutoDecreaseData.TickDelay,
+	                                       true,
+	                                       AutoDecreaseData.StartDelay);
 }
 
 void UEntityResource::StartAutoIncrease()
@@ -186,41 +191,67 @@ void UEntityResource::StartAutoIncrease()
 	                                       AutoIncreaseData.StartDelay);
 }
 
+void UEntityResource::StopAutoDecrease()
+{
+	if (!IsTimerActive(AutoDecreaseTimer))
+	{
+		return;
+	}
+
+	StopTimer(AutoDecreaseTimer);
+	OnAutoDecreaseStopped.Broadcast();
+}
+
+void UEntityResource::StopAutoIncrease()
+{
+	if (!IsTimerActive(AutoIncreaseTimer))
+	{
+		return;
+	}
+
+	StopTimer(AutoIncreaseTimer);
+	OnAutoIncreaseStopped.Broadcast();
+}
+
+
+bool UEntityResource::IsTimerActive(const FTimerHandle& Timer) const
+{
+	if (!GetWorld())
+	{
+		return false;
+	}
+
+	const FTimerManager& TimerManager = GetWorld()->GetTimerManager();
+
+	return TimerManager.IsTimerActive(Timer);
+}
+
+void UEntityResource::StopTimer(FTimerHandle& TimerHandle) const
+{
+	if (!GetWorld())
+	{
+		return;
+	}
+
+	FTimerManager& TimerManager = GetWorld()->GetTimerManager();
+
+	if (TimerManager.IsTimerActive(TimerHandle))
+	{
+		TimerManager.ClearTimer(TimerHandle);
+	}
+}
+
+
 void UEntityResource::ProcessAutoIncrease()
 {
 	IncreaseValue(AutoIncreaseData.Power);
 
 	if (GetNormalisedValue() >= AutoIncreaseData.Threshold)
 	{
-		StopTimer(AutoIncreaseTimer);
+		StopAutoIncrease();
 	}
 }
 
-void UEntityResource::StartAutoDecrease()
-{
-	if (!AutoDecreaseData.bIsEnabled || GetNormalisedValue() <= AutoDecreaseData.Threshold || !GetWorld())
-	{
-		return;
-	}
-
-	StopTimer(AutoDecreaseTimer);
-	GetWorld()->GetTimerManager().SetTimer(AutoDecreaseTimer,
-	                                       this,
-	                                       &UEntityResource::ProcessAutoDecrease,
-	                                       AutoDecreaseData.TickDelay,
-	                                       true,
-	                                       AutoDecreaseData.StartDelay);
-}
-
-void UEntityResource::StopAutoIncrease()
-{
-	StopTimer(AutoIncreaseTimer);
-}
-
-void UEntityResource::StopAutoDecrease()
-{
-	StopTimer(AutoDecreaseTimer);
-}
 
 void UEntityResource::ProcessAutoDecrease()
 {
@@ -228,6 +259,6 @@ void UEntityResource::ProcessAutoDecrease()
 
 	if (GetNormalisedValue() <= AutoDecreaseData.Threshold)
 	{
-		StopTimer(AutoDecreaseTimer);
+		StopAutoDecrease();
 	}
 }

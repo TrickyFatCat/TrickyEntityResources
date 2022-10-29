@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "SimpleEntityResource.h"
 #include "UObject/Object.h"
 #include "EntityResource.generated.h"
 
@@ -95,6 +96,25 @@ struct FResourceData
 
 };
 
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnResourceValueDecreasedSignature, float, NewValue, float, Amount);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnResourceValueIncreasedSignature, float, NewValue, float, Amount);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResourceValueZero);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnResourceMaxValueDecreasedSignature, float, NewValue, float, Amount);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnResourceMaxValueIncreasedSignature, float, NewMaxValue, float, Amount);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResourceAutoDecreaseStartedSignature);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResourceAutoIncreaseStartedSignature);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResourceAutoDecreaseStoppedSignature);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResourceAutoIncreaseStoppedSignature);
+
 /**
  * 
  */
@@ -105,6 +125,21 @@ class TRICKYENTITYRESOURCES_API UEntityResource : public UObject
 
 public:
 	UEntityResource();
+
+	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
+	FOnResourceValueDecreasedSignature OnValueDecreased;
+
+	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
+	FOnResourceValueIncreasedSignature OnValueIncreased;
+	
+	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
+	FOnResourceValueZero OnValueZero;
+	
+	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
+	FOnResourceMaxValueDecreasedSignature OnMaxValueDecreased;
+	
+	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
+	FOnResourceMaxValueIncreasedSignature OnMaxValueIncreased;
 	
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|EntityResource")
 	void DecreaseValue(float Amount);
@@ -136,6 +171,18 @@ private:
 	FResourceData ResourceData;
 
 public:
+	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
+	FOnResourceAutoDecreaseStartedSignature OnAutoDecreaseStarted;
+	
+	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
+	FOnResourceAutoIncreaseStartedSignature OnAutoIncreaseStarted;
+
+	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
+	FOnResourceAutoDecreaseStoppedSignature OnAutoDecreaseStopped;
+
+	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
+	FOnResourceAutoIncreaseStoppedSignature OnAutoIncreaseStopped;
+	
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|EntityResource")
 	void SetAutoIncreaseEnabled(const bool bIsEnabled);
 
@@ -155,16 +202,16 @@ public:
 	void GetAutoDecreaseData(FResourceAutoData& Data);
 	
 	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
+	void StartAutoDecrease();
+	
+	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
 	void StartAutoIncrease();
 	
 	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
-	void StartAutoDecrease();
+	void StopAutoDecrease();
 
 	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
 	void StopAutoIncrease();
-
-	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
-	void StopAutoDecrease();
 	
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="EntityResource", meta=(AllowPrivateAccess))
@@ -172,6 +219,8 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="EntityResource", meta=(AllowPrivateAccess))
 	FResourceAutoData AutoDecreaseData;
+
+	bool IsTimerActive(const FTimerHandle& Timer) const;
 	
 	void StopTimer(FTimerHandle& TimerHandle) const;
 	
