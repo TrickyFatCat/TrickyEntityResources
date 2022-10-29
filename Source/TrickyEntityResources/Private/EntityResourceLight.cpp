@@ -16,11 +16,11 @@ void UEntityResourceLight::DecreaseValue(const int32 Amount)
 	
 	ResourceData.Value -= Amount;
 	ResourceData.Value = FMath::Max(ResourceData.Value, 0);
-	// Call delegate
+	OnValueDecreased.Broadcast(ResourceData.Value, Amount);
 
 	if (ResourceData.Value == 0)
 	{
-		// Call delegate
+		OnValueZero.Broadcast();
 	}
 }
 
@@ -38,7 +38,7 @@ void UEntityResourceLight::IncreaseValue(const int32 Amount, bool bClampToMax)
 		ResourceData.Value = FMath::Min(ResourceData.Value, ResourceData.MaxValue);
 	}
 
-	// Call Delegate
+	OnValueIncreased.Broadcast(ResourceData.Value, Amount);
 }
 
 void UEntityResourceLight::DecreaseMaxValue(int32 Amount,const bool bClampValue)
@@ -50,7 +50,7 @@ void UEntityResourceLight::DecreaseMaxValue(int32 Amount,const bool bClampValue)
 
 	ResourceData.MaxValue -= Amount;
 	ResourceData.MaxValue = FMath::Max(ResourceData.MaxValue, 0);
-	// Call delegate
+	OnMaxValueDecreased.Broadcast(ResourceData.MaxValue, Amount);
 
 	if (bClampValue && ResourceData.Value > ResourceData.MaxValue)
 	{
@@ -67,7 +67,7 @@ void UEntityResourceLight::IncreaseMaxValue(int32 Amount, const bool bClampValue
 	}
 
 	ResourceData.MaxValue += Amount;
-	// Call Delegate
+	OnMaxValueIncreased.Broadcast(ResourceData.MaxValue, Amount);
 
 	if (bClampValue)
 	{
@@ -100,5 +100,6 @@ void UEntityResourceLight::SetResourceData(const FLightResourceData& Data)
 {
 	ResourceData = Data;
 	ResourceData.Value = ResourceData.bCustomInitialValue ? ResourceData.InitialValue : ResourceData.MaxValue;
-	// Call delegate
+	OnValueIncreased.Broadcast(ResourceData.Value, 0);
+	OnMaxValueIncreased.Broadcast(ResourceData.MaxValue, 0);
 }
