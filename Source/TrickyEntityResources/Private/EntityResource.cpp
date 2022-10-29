@@ -209,7 +209,17 @@ void UEntityResource::StartAutoDecrease()
 	                                       &UEntityResource::ProcessAutoDecrease,
 	                                       AutoDecreaseData.TickDelay,
 	                                       true,
-	                                       AutoIncreaseData.StartDelay);
+	                                       AutoDecreaseData.StartDelay);
+}
+
+void UEntityResource::StopAutoIncrease()
+{
+	StopTimer(AutoIncreaseTimer);
+}
+
+void UEntityResource::StopAutoDecrease()
+{
+	StopTimer(AutoDecreaseTimer);
 }
 
 void UEntityResource::ProcessAutoDecrease()

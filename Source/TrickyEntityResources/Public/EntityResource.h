@@ -154,6 +154,18 @@ public:
 	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
 	void GetAutoDecreaseData(FResourceAutoData& Data);
 	
+	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
+	void StartAutoIncrease();
+	
+	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
+	void StartAutoDecrease();
+
+	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
+	void StopAutoIncrease();
+
+	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
+	void StopAutoDecrease();
+	
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="EntityResource", meta=(AllowPrivateAccess))
 	FResourceAutoData AutoIncreaseData;
@@ -163,17 +175,11 @@ private:
 	
 	void StopTimer(FTimerHandle& TimerHandle) const;
 	
-	// Auto Increase
 	FTimerHandle AutoIncreaseTimer;
 	
-	void StartAutoIncrease();
-
 	void ProcessAutoIncrease();
 
-	// Auto Decrease
 	FTimerHandle AutoDecreaseTimer;
-
-	void StartAutoDecrease();
 
 	void ProcessAutoDecrease();
 };
