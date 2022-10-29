@@ -105,7 +105,28 @@ class TRICKYENTITYRESOURCES_API UEntityResource : public UObject
 
 public:
 	UEntityResource();
+	
+	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|EntityResource")
+	void DecreaseValue(float Amount);
 
+	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|EntityResource")
+	void IncreaseValue(const float Amount, const bool bClampToMax = true);
+
+	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|EntityResource")
+	void DecreaseMaxValue(float Amount, const bool bClampValue = true);
+	
+	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|EntityResource")
+	void IncreaseMaxValue(float Amount, const bool bClampValue = false);
+
+	UFUNCTION(BlueprintPure, Category="TrickyEntityResources|EntityResource")
+	float GetNormalisedValue() const;
+
+	UFUNCTION(BlueprintPure, Category="TrickyEntityResources|EntityResource")
+	float GetValue() const;
+
+	UFUNCTION(BlueprintPure, Category="TrickyEntityResources|EntityResource")
+	float GetMaxValue() const;
+	
 	void SetResourceData(const FResourceData& Data, const FResourceAutoData& IncreaseData, const FResourceAutoData& DecreaseData);
 
 	void GetResourceData(FResourceData& Data, FResourceAutoData& IncreaseData, FResourceAutoData& DecreaseData) const;
