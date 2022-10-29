@@ -3,13 +3,13 @@
 
 #include "EntityResourcesLibrary.h"
 
-#include "EntityResourceLight.h"
+#include "SimpleEntityResource.h"
 
-UEntityResourceLight* UEntityResourcesLibrary::CreateEntityResourceLight(UObject* Outer,
-                                                                         const FLightResourceData& ResourceData,
-                                                                         const FName Name)
+USimpleEntityResource* UEntityResourcesLibrary::CreateSimpleEntityResource(UObject* Outer,
+                                                                           const FSimpleResourceData& ResourceData,
+                                                                           const FName Name)
 {
-	UEntityResourceLight* Resource = NewObject<UEntityResourceLight>(Outer, Name);
+	USimpleEntityResource* Resource = NewObject<USimpleEntityResource>(Outer, Name);
 	Resource->SetResourceData(ResourceData);
 	return Resource;
 }

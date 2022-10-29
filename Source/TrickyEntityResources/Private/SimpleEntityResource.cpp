@@ -1,13 +1,13 @@
 ﻿// MIT License Copyright (c) 2022 Artyom "Tricky Fat Cat" Volkov
 
 
-#include "EntityResourceLight.h"
+#include "SimpleEntityResource.h"
 
-UEntityResourceLight::UEntityResourceLight()
+USimpleEntityResource::USimpleEntityResource()
 {
 }
 
-void UEntityResourceLight::DecreaseValue(const int32 Amount)
+void USimpleEntityResource::DecreaseValue(const int32 Amount)
 {
 	if (Amount <= 0)
 	{
@@ -24,7 +24,7 @@ void UEntityResourceLight::DecreaseValue(const int32 Amount)
 	}
 }
 
-void UEntityResourceLight::IncreaseValue(const int32 Amount, bool bClampToMax)
+void USimpleEntityResource::IncreaseValue(const int32 Amount, bool bClampToMax)
 {
 	if (Amount <= 0)
 	{
@@ -41,7 +41,7 @@ void UEntityResourceLight::IncreaseValue(const int32 Amount, bool bClampToMax)
 	OnValueIncreased.Broadcast(ResourceData.Value, Amount);
 }
 
-void UEntityResourceLight::DecreaseMaxValue(int32 Amount,const bool bClampValue)
+void USimpleEntityResource::DecreaseMaxValue(int32 Amount,const bool bClampValue)
 {
 	if (Amount <= 0)
 	{
@@ -59,7 +59,7 @@ void UEntityResourceLight::DecreaseMaxValue(int32 Amount,const bool bClampValue)
 	}
 }
 
-void UEntityResourceLight::IncreaseMaxValue(int32 Amount, const bool bClampValue)
+void USimpleEntityResource::IncreaseMaxValue(int32 Amount, const bool bClampValue)
 {
 	if (Amount <= 0)
 	{
@@ -76,7 +76,7 @@ void UEntityResourceLight::IncreaseMaxValue(int32 Amount, const bool bClampValue
 	}
 }
 
-float UEntityResourceLight::GetNormalisedValue() const
+float USimpleEntityResource::GetNormalisedValue() const
 {
 	if (ResourceData.Value == 0 || ResourceData.MaxValue == 0)
 	{
@@ -86,17 +86,17 @@ float UEntityResourceLight::GetNormalisedValue() const
 	return static_cast<float>(ResourceData.Value) / static_cast<float>(ResourceData.MaxValue);
 }
 
-int32 UEntityResourceLight::GetValue() const
+int32 USimpleEntityResource::GetValue() const
 {
 	return ResourceData.Value;
 }
 
-int32 UEntityResourceLight::GetMaxValue() const
+int32 USimpleEntityResource::GetMaxValue() const
 {
 	return ResourceData.MaxValue;
 }
 
-void UEntityResourceLight::SetResourceData(const FLightResourceData& Data)
+void USimpleEntityResource::SetResourceData(const FSimpleResourceData& Data)
 {
 	ResourceData = Data;
 	ResourceData.Value = ResourceData.bCustomInitialValue ? ResourceData.InitialValue : ResourceData.MaxValue;
@@ -104,7 +104,7 @@ void UEntityResourceLight::SetResourceData(const FLightResourceData& Data)
 	OnMaxValueIncreased.Broadcast(ResourceData.MaxValue, 0);
 }
 
-void UEntityResourceLight::GetResourceData(FLightResourceData& Data) const
+void USimpleEntityResource::GetResourceData(FSimpleResourceData& Data) const
 {
 	Data = ResourceData;
 }
