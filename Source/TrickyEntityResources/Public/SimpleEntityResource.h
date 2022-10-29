@@ -11,18 +11,18 @@ struct FSimpleResourceData
 {
 	GENERATED_BODY()
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="EntityResourceSimple")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="SimpleEntityResource")
 	int32 Value = 100;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="EntityResourceSimple", meta=(ClampMin="0"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SimpleEntityResource", meta=(ClampMin="0"))
 	int32 MaxValue = 100;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="EntityResourceSimple")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SimpleEntityResource")
 	bool bCustomInitialValue = false;
 
 	UPROPERTY(EditAnywhere,
 		BlueprintReadWrite,
-		Category="EntityResourceSimple",
+		Category="SimpleEntityResource",
 		meta=(EditCondition="bCustomInitialValue", ClampMin="0"))
 	int32 InitialValue = 100;
 };
@@ -56,40 +56,40 @@ class TRICKYENTITYRESOURCES_API USimpleEntityResource : public UObject
 public:
 	USimpleEntityResource();
 
-	UPROPERTY(BlueprintAssignable, Category="EntityResources|Simple")
+	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|SimpleEntityResource")
 	FOnSimpleResourceValueDecreasedSignature OnValueDecreased;
 
-	UPROPERTY(BlueprintAssignable, Category="EntityResources|Simple")
+	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|SimpleEntityResource")
 	FOnSimpleResourceValueIncreasedSignature OnValueIncreased;
 
-	UPROPERTY(BlueprintAssignable, Category="EntityResources|Simple")
+	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|SimpleEntityResource")
 	FOnSimpleResourceZeroValueSignature OnValueZero;
 
-	UPROPERTY(BlueprintAssignable, Category="EntityResources|Simple")
+	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|SimpleEntityResource")
 	FOnSimpleResourceMaxValueDecreasedSignature OnMaxValueDecreased;	
 
-	UPROPERTY(BlueprintAssignable, Category="EntityResources|Simple")
+	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|SimpleEntityResource")
 	FOnSimpleResourceMaxValueIncreasedSignature OnMaxValueIncreased;
 	
-	UFUNCTION(BlueprintCallable, Category="EntityResources|Simple")
+	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|SimpleEntityResource")
 	void DecreaseValue(const int32 Amount);
 
-	UFUNCTION(BlueprintCallable, Category="EntityResources|Simple")
+	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|SimpleEntityResource")
 	void IncreaseValue(const int32 Amount, bool bClampToMax = true);
 
-	UFUNCTION(BlueprintCallable, Category="EntityResources|Simple")
+	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|SimpleEntityResource")
 	void DecreaseMaxValue(int32 Amount, const bool bClampValue = true);
 
-	UFUNCTION(BlueprintCallable, Category="EntityResources|Simple")
+	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|SimpleEntityResource")
 	void IncreaseMaxValue(int32 Amount, const bool bClampValue = false);
 
-	UFUNCTION(BlueprintPure, Category="EntityResources|Simple")
+	UFUNCTION(BlueprintPure, Category="TrickyEntityResources|SimpleEntityResource")
 	float GetNormalisedValue() const;
 
-	UFUNCTION(BlueprintPure, Category="EntityResources|Simple")
+	UFUNCTION(BlueprintPure, Category="TrickyEntityResources|SimpleEntityResource")
 	int32 GetValue() const;
 
-	UFUNCTION(BlueprintPure, Category="EntityResources|Simple")
+	UFUNCTION(BlueprintPure, Category="TrickyEntityResources|SimpleEntityResource")
 	int32 GetMaxValue() const;
 
 	void SetResourceData(const FSimpleResourceData& Data);
@@ -97,6 +97,6 @@ public:
 	void GetResourceData(FSimpleResourceData& Data) const;
 	
 private:
-	UPROPERTY(BlueprintReadOnly, Category="EntityResources|Simple", meta=(AllowPrivateAccess))
+	UPROPERTY(BlueprintReadOnly, Category="TrickyEntityResources|SimpleEntityResource", meta=(AllowPrivateAccess))
 	FSimpleResourceData ResourceData;
 };
