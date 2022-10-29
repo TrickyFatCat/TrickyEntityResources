@@ -98,7 +98,7 @@ struct FResourceData
 /**
  * 
  */
-UCLASS()
+UCLASS(NotBlueprintable, BlueprintType)
 class TRICKYENTITYRESOURCES_API UEntityResource : public UObject
 {
 	GENERATED_BODY()
