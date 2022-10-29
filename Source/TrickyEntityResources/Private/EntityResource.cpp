@@ -27,6 +27,10 @@ void UEntityResource::DecreaseValue(float Amount)
 	{
 		// TODO Call delegate
 	}
+	else
+	{
+		StartAutoIncrease();
+	}
 }
 
 void UEntityResource::IncreaseValue(const float Amount, const bool bClampToMax)
@@ -44,7 +48,7 @@ void UEntityResource::IncreaseValue(const float Amount, const bool bClampToMax)
 	}
 
 	// TODO Call delegate
-	// TODO Start/Stop auto increase/decrease
+	StartAutoDecrease();
 }
 
 void UEntityResource::DecreaseMaxValue(float Amount, const bool bClampValue)
@@ -63,8 +67,6 @@ void UEntityResource::DecreaseMaxValue(float Amount, const bool bClampValue)
 		Amount = FMath::Abs(ResourceData.MaxValue - ResourceData.Value);
 		DecreaseValue(Amount);
 	}
-
-	// TODO Start/Stop auto increase/decrease
 }
 
 void UEntityResource::IncreaseMaxValue(float Amount, const bool bClampValue)
@@ -82,8 +84,6 @@ void UEntityResource::IncreaseMaxValue(float Amount, const bool bClampValue)
 		Amount = FMath::Abs(ResourceData.MaxValue - ResourceData.Value);
 		ResourceData.Value > ResourceData.MaxValue ? DecreaseValue(Amount) : IncreaseValue(Amount);
 	}
-
-	// TODO Start/Stop auto increase/decrease
 }
 
 float UEntityResource::GetNormalisedValue() const
@@ -106,27 +106,118 @@ float UEntityResource::GetMaxValue() const
 	return ResourceData.MaxValue;
 }
 
-void UEntityResource::SetResourceData(const FResourceData& Data,
-                                      const FResourceAutoData& IncreaseData,
-                                      const FResourceAutoData& DecreaseData)
+void UEntityResource::SetResourceData(const FResourceData& Data)
 {
 	ResourceData = Data;
-	AutoIncreaseData = IncreaseData;
-	AutoDecreaseData = DecreaseData;
-
 	ResourceData.Value = ResourceData.bUseCustomInitialValue ? ResourceData.InitialValue : ResourceData.MaxValue;
-	FResourceAutoData::CalculateTickDelay(AutoIncreaseData);
-	FResourceAutoData::CalculateTickDelay(AutoDecreaseData);
-
-	// TODO start auto increase
-	// TODO start auto decrease
 }
 
-void UEntityResource::GetResourceData(FResourceData& Data,
-                                      FResourceAutoData& IncreaseData,
-                                      FResourceAutoData& DecreaseData) const
+void UEntityResource::GetResourceData(FResourceData& Data) const
 {
 	Data = ResourceData;
-	IncreaseData = AutoIncreaseData;
-	DecreaseData = AutoDecreaseData;
+}
+
+void UEntityResource::SetAutoIncreaseEnabled(const bool bIsEnabled)
+{
+	AutoIncreaseData.bIsEnabled = bIsEnabled;
+	
+	bIsEnabled ? StartAutoIncrease() : StopTimer(AutoIncreaseTimer);
+}
+
+void UEntityResource::SetAutoDecreaseEnabled(const bool bIsEnabled)
+{
+	AutoDecreaseData.bIsEnabled = bIsEnabled;
+
+	bIsEnabled ? StartAutoDecrease() : StopTimer(AutoDecreaseTimer);
+}
+
+void UEntityResource::SetAutIncreaseData(const FResourceAutoData& Data)
+{
+	AutoIncreaseData = Data;
+	FResourceAutoData::CalculateTickDelay(AutoIncreaseData);
+	StartAutoIncrease();
+}
+
+void UEntityResource::SetAutoDecreaseData(const FResourceAutoData& Data)
+{
+	AutoDecreaseData = Data;
+	FResourceAutoData::CalculateTickDelay(AutoDecreaseData);
+	StartAutoIncrease();
+}
+
+void UEntityResource::GetAutoIncreaseData(FResourceAutoData& Data)
+{
+	Data = AutoIncreaseData;
+}
+
+void UEntityResource::GetAutoDecreaseData(FResourceAutoData& Data)
+{
+	Data = AutoDecreaseData;
+}
+
+void UEntityResource::StopTimer(FTimerHandle& TimerHandle) const
+{
+	if (!GetWorld())
+	{
+		return;
+	}
+
+	FTimerManager& TimerManager = GetWorld()->GetTimerManager();
+
+	if (TimerManager.TimerExists(TimerHandle))
+	{
+		TimerManager.ClearTimer(TimerHandle);
+	}
+}
+
+void UEntityResource::StartAutoIncrease()
+{
+	if (!AutoIncreaseData.bIsEnabled || GetNormalisedValue() >= AutoIncreaseData.Threshold || !GetWorld())
+	{
+		return;
+	}
+
+	StopTimer(AutoIncreaseTimer);
+	GetWorld()->GetTimerManager().SetTimer(AutoIncreaseTimer,
+	                                       this,
+	                                       &UEntityResource::ProcessAutoIncrease,
+	                                       AutoIncreaseData.TickDelay,
+	                                       true,
+	                                       AutoIncreaseData.StartDelay);
+}
+
+void UEntityResource::ProcessAutoIncrease()
+{
+	IncreaseValue(AutoIncreaseData.Power);
+
+	if (GetNormalisedValue() >= AutoIncreaseData.Threshold)
+	{
+		StopTimer(AutoIncreaseTimer);
+	}
+}
+
+void UEntityResource::StartAutoDecrease()
+{
+	if (!AutoDecreaseData.bIsEnabled || GetNormalisedValue() <= AutoDecreaseData.Threshold || !GetWorld())
+	{
+		return;
+	}
+
+	StopTimer(AutoDecreaseTimer);
+	GetWorld()->GetTimerManager().SetTimer(AutoDecreaseTimer,
+	                                       this,
+	                                       &UEntityResource::ProcessAutoDecrease,
+	                                       AutoDecreaseData.TickDelay,
+	                                       true,
+	                                       AutoIncreaseData.StartDelay);
+}
+
+void UEntityResource::ProcessAutoDecrease()
+{
+	DecreaseValue(AutoDecreaseData.Power);
+
+	if (GetNormalisedValue() <= AutoDecreaseData.Threshold)
+	{
+		StopTimer(AutoDecreaseTimer);
+	}
 }

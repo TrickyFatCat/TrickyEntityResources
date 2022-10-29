@@ -127,17 +127,53 @@ public:
 	UFUNCTION(BlueprintPure, Category="TrickyEntityResources|EntityResource")
 	float GetMaxValue() const;
 	
-	void SetResourceData(const FResourceData& Data, const FResourceAutoData& IncreaseData, const FResourceAutoData& DecreaseData);
+	void SetResourceData(const FResourceData& Data);
 
-	void GetResourceData(FResourceData& Data, FResourceAutoData& IncreaseData, FResourceAutoData& DecreaseData) const;
+	void GetResourceData(FResourceData& Data) const;
 
 private:
 	UPROPERTY(BlueprintReadOnly, Category="EntityResource", meta=(AllowPrivateAccess))
 	FResourceData ResourceData;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="EntityResource")
+public:
+	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|EntityResource")
+	void SetAutoIncreaseEnabled(const bool bIsEnabled);
+
+	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
+	void SetAutoDecreaseEnabled(const bool bIsEnabled);
+
+	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
+	void SetAutIncreaseData(const FResourceAutoData& Data);
+
+	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
+	void SetAutoDecreaseData(const FResourceAutoData& Data);
+
+	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
+	void GetAutoIncreaseData(FResourceAutoData& Data);
+	
+	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
+	void GetAutoDecreaseData(FResourceAutoData& Data);
+	
+private:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="EntityResource")
 	FResourceAutoData AutoIncreaseData;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="EntityResource")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="EntityResource")
 	FResourceAutoData AutoDecreaseData;
+	
+	void StopTimer(FTimerHandle& TimerHandle) const;
+	
+	// Auto Increase
+	FTimerHandle AutoIncreaseTimer;
+	
+	void StartAutoIncrease();
+
+	void ProcessAutoIncrease();
+
+	// Auto Decrease
+	FTimerHandle AutoDecreaseTimer;
+
+	void StartAutoDecrease();
+
+	void ProcessAutoDecrease();
 };
