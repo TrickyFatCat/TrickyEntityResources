@@ -131,7 +131,7 @@ void UEntityResource::SetAutoDecreaseEnabled(const bool bIsEnabled)
 	bIsEnabled ? StartAutoDecrease() : StopTimer(AutoDecreaseTimer);
 }
 
-void UEntityResource::SetAutIncreaseData(const FResourceAutoData& Data)
+void UEntityResource::SetAutoIncreaseData(const FResourceAutoData& Data)
 {
 	AutoIncreaseData = Data;
 	FResourceAutoData::CalculateTickDelay(AutoIncreaseData);

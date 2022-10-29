@@ -143,7 +143,7 @@ public:
 	void SetAutoDecreaseEnabled(const bool bIsEnabled);
 
 	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
-	void SetAutIncreaseData(const FResourceAutoData& Data);
+	void SetAutoIncreaseData(const FResourceAutoData& Data);
 
 	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
 	void SetAutoDecreaseData(const FResourceAutoData& Data);
@@ -155,10 +155,10 @@ public:
 	void GetAutoDecreaseData(FResourceAutoData& Data);
 	
 private:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="EntityResource")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="EntityResource", meta=(AllowPrivateAccess))
 	FResourceAutoData AutoIncreaseData;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="EntityResource")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="EntityResource", meta=(AllowPrivateAccess))
 	FResourceAutoData AutoDecreaseData;
 	
 	void StopTimer(FTimerHandle& TimerHandle) const;
