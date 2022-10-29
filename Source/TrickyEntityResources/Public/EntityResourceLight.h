@@ -94,9 +94,9 @@ public:
 
 	void SetResourceData(const FLightResourceData& Data);
 
+	void GetResourceData(FLightResourceData& Data) const;
 	
 private:
 	UPROPERTY(BlueprintReadOnly, Category="EntityResources|Light", meta=(AllowPrivateAccess))
-	;
 	FLightResourceData ResourceData;
 };

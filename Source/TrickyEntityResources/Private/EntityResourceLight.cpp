@@ -103,3 +103,8 @@ void UEntityResourceLight::SetResourceData(const FLightResourceData& Data)
 	OnValueIncreased.Broadcast(ResourceData.Value, 0);
 	OnMaxValueIncreased.Broadcast(ResourceData.MaxValue, 0);
 }
+
+void UEntityResourceLight::GetResourceData(FLightResourceData& Data) const
+{
+	Data = ResourceData;
+}
