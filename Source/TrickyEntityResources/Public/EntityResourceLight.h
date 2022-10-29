@@ -17,7 +17,7 @@ struct FLightResourceData
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="EntityResourceLight", meta=(ClampMin="0"))
 	int32 MaxValue = 100;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="EntityResourceLight", meta=(InlineEditConditionToggle))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="EntityResourceLight")
 	bool bCustomInitialValue = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="EntityResourceLight", meta=(EditCondition="bCustomInitialValue", ClampMin="0"))
@@ -57,6 +57,7 @@ public:
 	int32 GetMaxValue() const;
 
 	void SetResourceData(const FLightResourceData& Data);
+	
 private:
 	UPROPERTY(BlueprintReadOnly, Category="EntityResources|Light", meta=(AllowPrivateAccess));
 	FLightResourceData ResourceData;

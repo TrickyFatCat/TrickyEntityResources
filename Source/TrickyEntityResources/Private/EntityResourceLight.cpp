@@ -83,7 +83,7 @@ float UEntityResourceLight::GetNormalisedValue() const
 		return 0.f;
 	}
 
-	return ResourceData.Value / ResourceData.MaxValue;
+	return static_cast<float>(ResourceData.Value) / static_cast<float>(ResourceData.MaxValue);
 }
 
 int32 UEntityResourceLight::GetValue() const
