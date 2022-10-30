@@ -11,6 +11,9 @@ struct FSimpleResourceData
 {
 	GENERATED_BODY()
 
+	/**
+	 * Curren value.
+	 */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="SimpleEntityResource")
 	int32 Value = 100;
 
@@ -18,7 +21,7 @@ struct FSimpleResourceData
 	int32 MaxValue = 100;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SimpleEntityResource")
-	bool bCustomInitialValue = false;
+	bool bUseCustomInitialValue = false;
 
 	UPROPERTY(EditAnywhere,
 		BlueprintReadWrite,
@@ -46,7 +49,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnSimpleResourceMaxValueIncreasedS
                                              Amount);
 
 /**
- * 
+ * A simple version of the entity resource. It doesn't have auto increase/decrease functionality and uses int32. 
  */
 UCLASS(NotBlueprintable, BlueprintType)
 class TRICKYENTITYRESOURCES_API USimpleEntityResource : public UObject

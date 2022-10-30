@@ -99,7 +99,7 @@ int32 USimpleEntityResource::GetMaxValue() const
 void USimpleEntityResource::SetResourceData(const FSimpleResourceData& Data)
 {
 	ResourceData = Data;
-	ResourceData.Value = ResourceData.bCustomInitialValue ? ResourceData.InitialValue : ResourceData.MaxValue;
+	ResourceData.Value = ResourceData.bUseCustomInitialValue ? ResourceData.InitialValue : ResourceData.MaxValue;
 	OnValueIncreased.Broadcast(ResourceData.Value, 0);
 	OnMaxValueIncreased.Broadcast(ResourceData.MaxValue, 0);
 }
