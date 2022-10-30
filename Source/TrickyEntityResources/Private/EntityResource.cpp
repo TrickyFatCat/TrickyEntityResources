@@ -28,6 +28,16 @@ void UEntityResource::DecreaseValue(const float Amount)
 	if (ResourceData.Value <= 0.f)
 	{
 		OnValueZero.Broadcast();
+
+		if (AutoDecreaseData.bDisableOnZeroValue)
+		{
+			SetAutoDecreaseEnabled(false);
+		}
+
+		if (AutoIncreaseData.bDisableOnZeroValue)
+		{
+			SetAutoIncreaseEnabled(false);
+		}
 	}
 	else
 	{

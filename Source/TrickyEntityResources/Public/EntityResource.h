@@ -56,6 +56,9 @@ struct FResourceAutoData
 		meta=(EditCondition="bIsEnabled", ClampMin="0.0"))
 	float StartDelay = 1.f;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="EntityResource", meta=(EditCondition="bIsEnabled"))
+	bool bDisableOnZeroValue = false;
+
 	UPROPERTY()
 	float TickDelay = 1.f; // Time between ticks in seconds.
 	
