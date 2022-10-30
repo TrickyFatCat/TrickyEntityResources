@@ -37,8 +37,8 @@ struct FResourceAutoData
 
 	/**
 	 * The relative value of resource after which auto increase/decrease starts.
-	 * For increase current Value <= Threshold;
-	 * For decrease current Value >= Threshold;
+	 * For increase current Value <= Threshold.
+	 * For decrease current Value >= Threshold.
 	 */
 	UPROPERTY(EditAnywhere,
 		BlueprintReadWrite,
@@ -48,7 +48,6 @@ struct FResourceAutoData
 
 	/**
 	 * A delay time after which auto increase/decrease starts. If == 0, they start immediately.
-	 * In seconds;
 	 */
 	UPROPERTY(EditAnywhere,
 		BlueprintReadWrite,
@@ -56,6 +55,9 @@ struct FResourceAutoData
 		meta=(EditCondition="bIsEnabled", ClampMin="0.0"))
 	float StartDelay = 1.f;
 
+	/**
+	 * If true, auto increase/decrease will be stopped if Value reached zero.
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="EntityResource", meta=(EditCondition="bIsEnabled"))
 	bool bDisableOnZeroValue = false;
 
@@ -129,13 +131,13 @@ public:
 	UEntityResource();
 	
 	/**
-	 * Called when Value successfully decreased.
+	 * Called when Value was successfully decreased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
 	FOnResourceValueDecreasedSignature OnValueDecreased;
 
 	/**
-	 * Called when Value successfully increased.
+	 * Called when Value was successfully increased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
 	FOnResourceValueIncreasedSignature OnValueIncreased;
@@ -147,13 +149,13 @@ public:
 	FOnResourceValueZeroSignature OnValueZero;
 
 	/**
-	 * Called when MaxValue successfully decreased.
+	 * Called when MaxValue was successfully decreased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
 	FOnResourceMaxValueDecreasedSignature OnMaxValueDecreased;
 
 	/**
-	 * Called when MaxValue successfully increased.
+	 * Called when MaxValue was successfully increased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
 	FOnResourceMaxValueIncreasedSignature OnMaxValueIncreased;
@@ -189,7 +191,7 @@ public:
 	float GetNormalisedValue() const;
 
 	/**
-	 * Returns value.
+	 * Returns current value.
 	 */
 	UFUNCTION(BlueprintPure, Category="TrickyEntityResources|EntityResource")
 	float GetValue() const;
