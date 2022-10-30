@@ -14,7 +14,7 @@ UEntityResource::UEntityResource()
 {
 }
 
-void UEntityResource::DecreaseValue(float Amount)
+void UEntityResource::DecreaseValue(const float Amount)
 {
 	if (Amount <= 0.f)
 	{
@@ -32,6 +32,11 @@ void UEntityResource::DecreaseValue(float Amount)
 	else
 	{
 		StartAutoIncrease();
+	}
+
+	if (GetNormalisedValue() <= AutoDecreaseData.Threshold)
+	{
+		StopAutoDecrease();
 	}
 }
 
@@ -51,6 +56,11 @@ void UEntityResource::IncreaseValue(const float Amount, const bool bClampToMax)
 
 	OnValueIncreased.Broadcast(ResourceData.Value, Amount);
 	StartAutoDecrease();
+
+	if (GetNormalisedValue() >= AutoIncreaseData.Threshold)
+	{
+		StopAutoIncrease();
+	}
 }
 
 void UEntityResource::DecreaseMaxValue(float Amount, const bool bClampValue)
