@@ -10,7 +10,7 @@
 /**
  * A component which handles creating and controlling one SimpleEntityResource object.
  */
-UCLASS(ClassGroup=(TrickyEntityResources), meta=(BlueprintSpawnableComponent))
+UCLASS(Blueprintable, ClassGroup=(TrickyEntityResources), meta=(BlueprintSpawnableComponent))
 class TRICKYENTITYRESOURCES_API USimpleResourceComponent : public UActorComponent
 {
 	GENERATED_BODY()
