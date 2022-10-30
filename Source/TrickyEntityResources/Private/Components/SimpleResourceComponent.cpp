@@ -3,7 +3,6 @@
 
 #include "Components/SimpleResourceComponent.h"
 #include "SimpleEntityResource.h"
-#include "EntityResourcesLibrary.h"
 
 
 USimpleResourceComponent::USimpleResourceComponent()
