@@ -91,10 +91,10 @@ void UEntityResource::IncreaseMaxValue(float Amount, const bool bClampValue)
 	ResourceData.MaxValue += Amount;
 	OnMaxValueIncreased.Broadcast(ResourceData.MaxValue, Amount);
 
-	if (bClampValue)
+	if (bClampValue && ResourceData.Value < ResourceData.MaxValue)
 	{
 		Amount = FMath::Abs(ResourceData.MaxValue - ResourceData.Value);
-		ResourceData.Value > ResourceData.MaxValue ? DecreaseValue(Amount) : IncreaseValue(Amount);
+		IncreaseValue(Amount);
 	}
 	else
 	{
