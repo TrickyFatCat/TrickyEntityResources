@@ -69,7 +69,7 @@ void USimpleEntityResource::IncreaseMaxValue(int32 Amount, const bool bClampValu
 	ResourceData.MaxValue += Amount;
 	OnMaxValueIncreased.Broadcast(ResourceData.MaxValue, Amount);
 
-	if (bClampValue)
+	if (bClampValue && ResourceData.Value < ResourceData.MaxValue)
 	{
 		Amount = FMath::Abs(ResourceData.MaxValue - ResourceData.Value);
 		IncreaseValue(Amount);
