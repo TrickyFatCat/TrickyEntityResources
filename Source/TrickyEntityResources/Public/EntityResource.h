@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "SimpleEntityResource.h"
 #include "UObject/Object.h"
+#include "TimerManager.h"
 #include "EntityResource.generated.h"
 
 USTRUCT(BlueprintType)

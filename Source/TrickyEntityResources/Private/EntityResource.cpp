@@ -2,6 +2,8 @@
 
 
 #include "EntityResource.h"
+#include "TimerManager.h"
+#include "Engine/World.h"
 
 void FResourceAutoData::CalculateTickDelay(FResourceAutoData& Data)
 {
