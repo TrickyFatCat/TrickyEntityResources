@@ -96,12 +96,11 @@ struct FResourceData
 
 };
 
-
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnResourceValueDecreasedSignature, float, NewValue, float, Amount);
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnResourceValueIncreasedSignature, float, NewValue, float, Amount);
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResourceValueZero);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResourceValueZeroSignature);
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnResourceMaxValueDecreasedSignature, float, NewValue, float, Amount);
 
@@ -142,7 +141,7 @@ public:
 	 * Called when Value has reached zero.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
-	FOnResourceValueZero OnValueZero;
+	FOnResourceValueZeroSignature OnValueZero;
 
 	/**
 	 * Called when MaxValue successfully decreased.
