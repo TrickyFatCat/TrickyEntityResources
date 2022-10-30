@@ -160,7 +160,7 @@ public:
 	 * Decreases Value and clamps it to zero.
 	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|EntityResource")
-	void DecreaseValue(float Amount);
+	void DecreaseValue(const float Amount);
 
 	/** 
 	 * Increases Value. If ClampToMax == true, the Value will be clamped to MaxValue.
