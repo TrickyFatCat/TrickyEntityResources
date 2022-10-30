@@ -219,3 +219,8 @@ A component which handles creating and controlling one SimpleEntityResource obje
 5. `OnResourceMaxValueIncreased` - called when `MaxValue` was successfully increased;
 
 ## Quick setup
+
+Add one of the components to the chosen actor if you need something simple.
+
+If you need component with several resources, e.g. health points and armor. You have to create resource objects
+using `CreateEntityResource` or `CreateSimpleEntityResource` functions.
