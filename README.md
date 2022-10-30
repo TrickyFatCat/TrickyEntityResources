@@ -56,9 +56,9 @@ Main entity resource which can automatically increase and decrease current value
 #### Functions
 
 1. `DecreaseValue` - decreases `Value` and clamps it to 0;
-2. `IncreaseValue` - increases Value. If ClampToMax == true, the Value will be clamped to MaxValue;
-3. `DecreaseMaxValue` - decreases MaxValue. If ClampValue == true and Value > MaxValue, Value will be clamped to MaxValue;
-4. `IncreaseMaxValue` - increases MaxValue. If ClampValue == true and Value < MaxValue, Value will be clamped to MaxValue;
+2. `IncreaseValue` - increases `Value`. If `ClampToMax == true`, the Value will be clamped to MaxValue;
+3. `DecreaseMaxValue` - decreases `MaxValue`. If `ClampValue == true` and `Value > MaxValue`, `Value` will be clamped to MaxValue;
+4. `IncreaseMaxValue` - increases `MaxValue`. If `ClampValue == true` and `Value < MaxValue`, `Value` will be clamped to MaxValue;
 5. `GetNormalisedValue` - returns normalised value of the resource;
 6. `GetValue` - returns `Value`;
 7. `GetMaxValue` - returns `MaxValue`;
@@ -75,39 +75,44 @@ Main entity resource which can automatically increase and decrease current value
 
 #### Delegates
 
-1. `OnValueDecreased` - called when `Value` successfully decreased;
-2. `OnValueIncreased` - called when `Value` successfully increased;
+1. `OnValueDecreased` - called when `Value` was successfully decreased;
+2. `OnValueIncreased` - called when `Value` was successfully increased;
 3. `OnValueZero` - called when `Value` has reached zero;
-4. `OnMaxValueDecreased` - called when `MaxValue` successfully decreased;
-5. `OnMaxValueIncreased` - called when `MaxValue` successfully increased;
-6. `OnAutoDecreaseStarted` - called when auto decrease started;
-7. `OnAutoIncreaseStrated` - called when auto increase started;
-8. `OnAutoDecreaseStopped` - called when auto decrease stopped;
-9. `OnAutoIncreaseStopped` - called when auto increase stopped;
+4. `OnMaxValueDecreased` - called when `MaxValue` was successfully decreased;
+5. `OnMaxValueIncreased` - called when `MaxValue` was successfully increased;
+6. `OnAutoDecreaseStarted` - called when auto decrease was started;
+7. `OnAutoIncreaseStrated` - called when auto increase was started;
+8. `OnAutoDecreaseStopped` - called when auto decrease was stopped;
+9. `OnAutoIncreaseStopped` - called when auto increase was stopped;
 
 ### SimpleEntityResource
 
+A simple version of the entity resource. It doesn't have auto increase/decrease functionality and uses int32. 
+
 #### Variables
 
-1. `ResourceData`
+1. `ResourceData` - a struct with base parameters:
+   * `Value` - current value;
+   * `MaxValue` - max value;
+   * `UseCustomInitialValue` - toggles if `Value = InitialValue` or `Value = MaxValue` on resource creation;
 
 #### Functions
  
-1. `DecreaseValue`
-2. `IncreaseValue`
-3. `DecreaseMaxValue`
-4. `IncreaseMaxValue`
-5. `GetNormalisedValue`
-6. `GetValue`
-7. `GetMaxValue`
+1. `DecreaseValue` - decreases `Value`;
+2. `IncreaseValue` - increases `Value`. If `ClampToMax == true`, it'll be clamped to `MaxValue`;
+3. `DecreaseMaxValue`- decreases `MaxValue`. If `ClampValue == true` and `Value > MaxValue`, `Value` will be clamped to MaxValue;
+4. `IncreaseMaxValue` - increases `MaxValue`. If `ClampValue == true` and `Value < MaxValue`, `Value` will be clamped to MaxValue;
+5. `GetNormalisedValue` - returns normalised `Value`;
+6. `GetValue` - returns `Value`;
+7. `GetMaxValue` - returns `MaxValue`;
 
 #### Delegates
 
-1. `OnValueDecreased`
-2. `OnValueIncreased`
-3. `OnValueZero`
-4. `OnMaxValueDecreased`
-5. `OnMaxValueIncreased`
+1. `OnValueDecreased` - called when `Value` was successfully decreased;
+2. `OnValueIncreased` - called when `Value` was successfully increased;
+3. `OnValueZero` - called when `Value` has reached zero;
+4. `OnMaxValueDecreased` - called when `MaxValue` was successfully decreased;
+5. `OnMaxValueIncreased` - called when `MaxValue` was successfully increased;
 
 ### EntityResourceLibrary
 
