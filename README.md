@@ -55,23 +55,23 @@ Main entity resource which can automatically increase and decrease current value
 
 #### Functions
 
-1. `DecreaseValue`
-2. `IncreaseValue`
-3. `DecreaseMaxValue`
-4. `IncreaseMaxValue`
-5. `GetNormalisedValue`
-6. `GetValue`
-7. `GetMaxValue`
-8. `SetAutoIncreaseEnabled`
-9. `SetAutoDecreaseEnabled`
-10. `SetAutoIncreaseData`
-11. `SetAutodecreaseData`
-12. `GetAutoIncreaseData`
-13. `GetAutoDecreaseData`
-14. `StartAutoDecrease`
-15. `StartAutoIncrease`
-16. `StopAutoDecrease`
-17. `StopAutoIncrease`
+1. `DecreaseValue` - decreases `Value` and clamps it to 0;
+2. `IncreaseValue` - increases Value. If ClampToMax == true, the Value will be clamped to MaxValue;
+3. `DecreaseMaxValue` - decreases MaxValue. If ClampValue == true and Value > MaxValue, Value will be clamped to MaxValue;
+4. `IncreaseMaxValue` - increases MaxValue. If ClampValue == true and Value < MaxValue, Value will be clamped to MaxValue;
+5. `GetNormalisedValue` - returns normalised value of the resource;
+6. `GetValue` - returns `Value`;
+7. `GetMaxValue` - returns `MaxValue`;
+8. `SetAutoIncreaseEnabled` - toggles auto increase;
+9. `SetAutoDecreaseEnabled` - toggles auto decrease;
+10. `SetAutoIncreaseData` - sets `AutoIncreaseData`;
+11. `SetAutodecreaseData` - sets `AutoDecreaseData`;
+12. `GetAutoIncreaseData` - returns `AutoIncreaseData` by reference;
+13. `GetAutoDecreaseData` - returns `AutoDecreaseData` by reference;
+14. `StartAutoDecrease` - starts auto decrease;
+15. `StartAutoIncrease` - starts auto increase;
+16. `StopAutoDecrease` - stops auto decrease;
+17. `StopAutoIncrease` - stops auto increase;
 
 #### Delegates
 

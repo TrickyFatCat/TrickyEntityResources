@@ -140,25 +140,46 @@ public:
 	
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
 	FOnResourceMaxValueIncreasedSignature OnMaxValueIncreased;
-	
+
+	/**
+	 * Decreases Value and clamps it to zero.
+	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|EntityResource")
 	void DecreaseValue(float Amount);
 
+	/** 
+	 * Increases Value. If ClampToMax == true, the Value will be clamped to MaxValue.
+	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|EntityResource")
 	void IncreaseValue(const float Amount, const bool bClampToMax = true);
 
+	/**
+	 * Decreases MaxValue. If ClampValue == true and Value > MaxValue, Value will be clamped to MaxValue.
+	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|EntityResource")
 	void DecreaseMaxValue(float Amount, const bool bClampValue = true);
-	
+
+	/**
+	 * Increases MaxValue. If ClampValue == true and Value < MaxValue, Value will be clamped to MaxValue.
+	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|EntityResource")
 	void IncreaseMaxValue(float Amount, const bool bClampValue = false);
 
+	/**
+	 * Returns normalised value of the resource.
+	 */
 	UFUNCTION(BlueprintPure, Category="TrickyEntityResources|EntityResource")
 	float GetNormalisedValue() const;
 
+	/**
+	 * Returns value.
+	 */
 	UFUNCTION(BlueprintPure, Category="TrickyEntityResources|EntityResource")
 	float GetValue() const;
 
+	/**
+	 * Returns max value.
+	 */
 	UFUNCTION(BlueprintPure, Category="TrickyEntityResources|EntityResource")
 	float GetMaxValue() const;
 	
@@ -182,34 +203,64 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
 	FOnResourceAutoIncreaseStoppedSignature OnAutoIncreaseStopped;
-	
+
+	/**
+	 * Toggles auto increase.
+	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|EntityResource")
 	void SetAutoIncreaseEnabled(const bool bIsEnabled);
 
+	/**
+	 * Toggles auto decrease.
+	 */
 	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
 	void SetAutoDecreaseEnabled(const bool bIsEnabled);
 
+	/**
+	 * Sets AutoIncreaseData.
+	 */
 	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
 	void SetAutoIncreaseData(const FResourceAutoData& Data);
 
+	/**
+	 * Sets AutoDecreaseData;
+	 */
 	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
 	void SetAutoDecreaseData(const FResourceAutoData& Data);
 
+	/**
+	 * Returns AutoIncreaseData by reference.
+	 */
 	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
 	void GetAutoIncreaseData(FResourceAutoData& Data);
-	
+
+	/**
+	 * Returns AutoDecreaseData by reference.
+	 */
 	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
 	void GetAutoDecreaseData(FResourceAutoData& Data);
-	
+
+	/**
+	 * Starts auto decrease.
+	 */
 	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
 	void StartAutoDecrease();
-	
+
+	/**
+	 * Starts auto increase.
+	 */
 	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
 	void StartAutoIncrease();
-	
+
+	/**
+	 * Stops auto decrease.
+	 */
 	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
 	void StopAutoDecrease();
 
+	/**
+	 * Stops auto increase.
+	 */
 	UFUNCTION(BlueprintCallable, Category="TriciyEntityResources|EntityResource")
 	void StopAutoIncrease();
 	
