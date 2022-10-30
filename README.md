@@ -177,14 +177,45 @@ A component which handles creating and controlling one EntityResource object.
 
 #### Delegates
 
-1. `OnValueDecreased` - called when `Value` was successfully decreased;
-2. `OnValueIncreased` - called when `Value` was successfully increased;
-3. `OnValueZero` - called when `Value` has reached zero;
-4. `OnMaxValueDecreased` - called when `MaxValue` was successfully decreased;
-5. `OnMaxValueIncreased` - called when `MaxValue` was successfully increased;
-6. `OnAutoDecreaseStarted` - called when auto decrease was started;
-7. `OnAutoIncreaseStrated` - called when auto increase was started;
-8. `OnAutoDecreaseStopped` - called when auto decrease was stopped;
-9. `OnAutoIncreaseStopped` - called when auto increase was stopped;
+1. `OnResourceValueDecreased` - called when `Value` was successfully decreased;
+2. `OnResourceValueIncreased` - called when `Value` was successfully increased;
+3. `OnResourceValueZero` - called when `Value` has reached zero;
+4. `OnResourceMaxValueDecreased` - called when `MaxValue` was successfully decreased;
+5. `OnResourceMaxValueIncreased` - called when `MaxValue` was successfully increased;
+6. `OnResourceAutoDecreaseStarted` - called when auto decrease was started;
+7. `OnResourceAutoIncreaseStrated` - called when auto increase was started;
+8. `OnResourceAutoDecreaseStopped` - called when auto decrease was stopped;
+9. `OnResourceAutoIncreaseStopped` - called when auto increase was stopped;
+
+### SimpleResourceComponent
+
+A component which handles creating and controlling one SimpleEntityResource object.
+
+#### Variables
+
+1. `ResourceData` - a struct with base parameters:
+    * `Value` - current value;
+    * `MaxValue` - max value;
+    * `UseCustomInitialValue` - toggles if `Value = InitialValue` or `Value = MaxValue` on resource creation;
+
+#### Functions
+
+1. `DecreaseValue` - decreases `Value`;
+2. `IncreaseValue` - increases `Value`. If `ClampToMax == true`, it'll be clamped to `MaxValue`;
+3. `DecreaseMaxValue`- decreases `MaxValue`. If `ClampValue == true` and `Value > MaxValue`, `Value` will be clamped to
+   MaxValue;
+4. `IncreaseMaxValue` - increases `MaxValue`. If `ClampValue == true` and `Value < MaxValue`, `Value` will be clamped to
+   MaxValue;
+5. `GetNormalisedValue` - returns normalised `Value`;
+6. `GetValue` - returns `Value`;
+7. `GetMaxValue` - returns `MaxValue`;
+
+#### Delegates
+
+1. `OnResourceValueDecreased` - called when `Value` was successfully decreased;
+2. `OnResourceValueIncreased` - called when `Value` was successfully increased;
+3. `OnResourceValueZero` - called when `Value` has reached zero;
+4. `OnResourceMaxValueDecreased` - called when `MaxValue` was successfully decreased;
+5. `OnResourceMaxValueIncreased` - called when `MaxValue` was successfully increased;
 
 ## Quick setup
