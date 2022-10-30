@@ -20,6 +20,7 @@ void UResourceComponent::BeginPlay()
 		ResourceObject->SetResourceData(ResourceData);
 		ResourceObject->SetAutoDecreaseData(AutoDecreaseData);
 		ResourceObject->SetAutoIncreaseData(AutoIncreaseData);
+
 		ResourceObject->OnValueDecreased.AddDynamic(this, &UResourceComponent::OnValueDecreased);
 		ResourceObject->OnValueIncreased.AddDynamic(this, &UResourceComponent::OnValueIncreased);
 		ResourceObject->OnValueZero.AddDynamic(this, &UResourceComponent::OnValueZero);
@@ -29,6 +30,16 @@ void UResourceComponent::BeginPlay()
 		ResourceObject->OnAutoIncreaseStarted.AddDynamic(this, &UResourceComponent::OnAutoIncreaseStarted);
 		ResourceObject->OnAutoDecreaseStopped.AddDynamic(this, &UResourceComponent::OnAutoDecreaseStopped);
 		ResourceObject->OnAutoIncreaseStopped.AddDynamic(this, &UResourceComponent::OnAutoIncreaseStopped);
+		
+		if (GetNormalisedValue() >= AutoDecreaseData.Threshold)
+		{
+			ResourceObject->StartAutoDecrease();
+		}
+		
+		if (GetNormalisedValue() <= AutoIncreaseData.Threshold)
+		{
+			ResourceObject->StartAutoIncrease();
+		}
 	}
 }
 

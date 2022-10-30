@@ -127,7 +127,7 @@ class TRICKYENTITYRESOURCES_API UEntityResource : public UObject
 
 public:
 	UEntityResource();
-
+	
 	/**
 	 * Called when Value successfully decreased.
 	 */
