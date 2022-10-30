@@ -27,7 +27,7 @@ struct FResourceAutoData
 	float Power = 1.f;
 
 	/**
-	 * How often the resource will increase/decrease automatically every second.
+	 * How often the resource will increase/decrease automatically per second.
 	 */
 	UPROPERTY(EditAnywhere,
 		BlueprintReadWrite,

@@ -35,9 +35,23 @@ Main entity resource which can automatically increase and decrease current value
 
 #### Variables
 
-1. `ResourceData`
-2. `AutoIncreaseData`
-3. `AutoDecreaseDta`
+1. `ResourceData` - a struct with the basic parameters of the entity resource:
+   * `Value` - current value;
+   * `Maximum Value` - maximum value;
+   * `UseCustomInitialValue` - toggles if the resource must have a custom `Value` on creation;
+   * `InitialValue` - determines the custom value of `Value` on creation;
+2. `AutoIncreaseData` - a struct with basic parameters for auto increase of the resource:
+   * `IsEnabled` - toggles if auto increase is enabled;
+   * `Power` - the amount of the resource on which `Value` is increased every tick;
+   * `Frequency` - how often the resource will increase per second;
+   * `Thershhold` - if `Value` <= `Threshold`, the auto increase will start;
+   * `StartDelay` - a delay time after which auto increase starts. If == 0, it starts immediately;
+3. `AutoDecreaseDta` - a struct with basic parameters for auto decrease of the resource:
+   * `IsEnabled` - toggles if auto decrease is enabled;
+   * `Power` - the amount of the resource on which `Value` is decreased every tick;
+   * `Frequency` - how often the resource will decrease per second;
+   * `Thershhold` - if `Value` <= `Threshold`, the auto decrease will start;
+   * `StartDelay` - a delay time after which auto decrease starts. If == 0, it starts immediately;
 
 #### Functions
 
