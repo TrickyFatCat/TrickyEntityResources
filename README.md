@@ -118,7 +118,7 @@ A simple version of the entity resource. It doesn't have auto increase/decrease 
 
 #### Functions
 
-1. `CreateEntityResource`
-2. `CreateSimpleEntityResource`
+1. `CreateEntityResource` - creates an EntityResource object.
+2. `CreateSimpleEntityResource` - creates a SimpleEntityResource object.
 
 ## Quick setup

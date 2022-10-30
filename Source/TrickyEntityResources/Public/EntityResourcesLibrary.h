@@ -16,11 +16,17 @@ class TRICKYENTITYRESOURCES_API UEntityResourcesLibrary : public UBlueprintFunct
 {
 	GENERATED_BODY()
 
+	/**
+	 * Creates an EntityResource object.
+	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources")
 	static USimpleEntityResource* CreateSimpleEntityResource(UObject* Outer,
 	                                                         const FSimpleResourceData& ResourceData,
 	                                                         const FName Name = TEXT("New Simple Resource"));
 
+	/**
+	 * Creates a SimpleEntityResource object.
+	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources")
 	static UEntityResource* CreateEntityResource(UObject* Outer,
 	                                             const FResourceData& ResourceData,
