@@ -31,8 +31,75 @@ The plugin has:
 
 ### EntityResource
 
+Main entity resource which can automatically increase and decrease current value.
+
+#### Variables
+
+1. `ResourceData`
+2. `AutoIncreaseData`
+3. `AutoDecreaseDta`
+
+#### Functions
+
+1. `DecreaseValue`
+2. `IncreaseValue`
+3. `DecreaseMaxValue`
+4. `IncreaseMaxValue`
+5. `GetNormalisedValue`
+6. `GetValue`
+7. `GetMaxValue`
+8. `SetAutoIncreaseEnabled`
+9. `SetAutoDecreaseEnabled`
+10. `SetAutoIncreaseData`
+11. `SetAutodecreaseData`
+12. `GetAutoIncreaseData`
+13. `GetAutoDecreaseData`
+14. `StartAutoDecrease`
+15. `StartAutoIncrease`
+16. `StopAutoDecrease`
+17. `StopAutoIncrease`
+
+#### Delegates
+
+1. `OnValueDecreased`
+2. `OnValueIncreased`
+3. `OnValueZero`
+4. `OnMaxValueDecreased`
+5. `OnMaxValueIncreased`
+6. `OnAutoDecreaseStarted`
+7. `OnAutoIncreaseStrated`
+8. `OnAutoDecreaseStopped`
+9. `OnAutoIncreaseStopped`
+
 ### SimpleEntityResource
 
+#### Variables
+
+1. `ResourceData`
+
+#### Functions
+ 
+1. `DecreaseValue`
+2. `IncreaseValue`
+3. `DecreaseMaxValue`
+4. `IncreaseMaxValue`
+5. `GetNormalisedValue`
+6. `GetValue`
+7. `GetMaxValue`
+
+#### Delegates
+
+1. `OnValueDecreased`
+2. `OnValueIncreased`
+3. `OnValueZero`
+4. `OnMaxValueDecreased`
+5. `OnMaxValueIncreased`
+
 ### EntityResourceLibrary
+
+#### Functions
+
+1. `CreateEntityResource`
+2. `CreateSimpleEntityResource`
 
 ## Quick setup

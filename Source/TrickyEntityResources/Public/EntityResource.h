@@ -116,7 +116,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResourceAutoDecreaseStoppedSignature);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResourceAutoIncreaseStoppedSignature);
 
 /**
- * 
+ * Main entity resource which can automatically increase and decrease current value.
  */
 UCLASS(NotBlueprintable, BlueprintType)
 class TRICKYENTITYRESOURCES_API UEntityResource : public UObject
