@@ -10,7 +10,7 @@
 /**
  *
  */
-UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
+UCLASS(ClassGroup=(TrickyEntityResources), meta=(BlueprintSpawnableComponent))
 class TRICKYENTITYRESOURCES_API USimpleResourceComponent : public UActorComponent
 {
 	GENERATED_BODY()
