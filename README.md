@@ -75,15 +75,15 @@ Main entity resource which can automatically increase and decrease current value
 
 #### Delegates
 
-1. `OnValueDecreased`
-2. `OnValueIncreased`
-3. `OnValueZero`
-4. `OnMaxValueDecreased`
-5. `OnMaxValueIncreased`
-6. `OnAutoDecreaseStarted`
-7. `OnAutoIncreaseStrated`
-8. `OnAutoDecreaseStopped`
-9. `OnAutoIncreaseStopped`
+1. `OnValueDecreased` - called when `Value` successfully decreased;
+2. `OnValueIncreased` - called when `Value` successfully increased;
+3. `OnValueZero` - called when `Value` has reached zero;
+4. `OnMaxValueDecreased` - called when `MaxValue` successfully decreased;
+5. `OnMaxValueIncreased` - called when `MaxValue` successfully increased;
+6. `OnAutoDecreaseStarted` - called when auto decrease started;
+7. `OnAutoIncreaseStrated` - called when auto increase started;
+8. `OnAutoDecreaseStopped` - called when auto decrease stopped;
+9. `OnAutoIncreaseStopped` - called when auto increase stopped;
 
 ### SimpleEntityResource
 

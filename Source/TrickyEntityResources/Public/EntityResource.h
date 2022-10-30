@@ -126,18 +126,33 @@ class TRICKYENTITYRESOURCES_API UEntityResource : public UObject
 public:
 	UEntityResource();
 
+	/**
+	 * Called when Value successfully decreased.
+	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
 	FOnResourceValueDecreasedSignature OnValueDecreased;
 
+	/**
+	 * Called when Value successfully increased.
+	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
 	FOnResourceValueIncreasedSignature OnValueIncreased;
-	
+
+	/**
+	 * Called when Value has reached zero.
+	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
 	FOnResourceValueZero OnValueZero;
-	
+
+	/**
+	 * Called when MaxValue successfully decreased.
+	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
 	FOnResourceMaxValueDecreasedSignature OnMaxValueDecreased;
-	
+
+	/**
+	 * Called when MaxValue successfully increased.
+	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
 	FOnResourceMaxValueIncreasedSignature OnMaxValueIncreased;
 
@@ -192,15 +207,27 @@ private:
 	FResourceData ResourceData;
 
 public:
+	/**
+	 * Called when auto decrease started.
+	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
 	FOnResourceAutoDecreaseStartedSignature OnAutoDecreaseStarted;
-	
+
+	/**
+	 * Called when auto increase started.
+	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
 	FOnResourceAutoIncreaseStartedSignature OnAutoIncreaseStarted;
 
+	/**
+	 * Called when auto decrease stopped.
+	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
 	FOnResourceAutoDecreaseStoppedSignature OnAutoDecreaseStopped;
 
+	/**
+	 * Called when auto increase stopped.
+	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
 	FOnResourceAutoIncreaseStoppedSignature OnAutoIncreaseStopped;
 
