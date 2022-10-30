@@ -80,7 +80,7 @@ struct FResourceData
 	float MaxValue = 100.f;
 
 	/**
-	 * If true Value = ValueInitial, else Value = ValueMax.
+	 * If true Value = ValueInitial, else Value = ValueMax on resource creation.
 	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="EntityResource")
 	bool bUseCustomInitialValue = false;
