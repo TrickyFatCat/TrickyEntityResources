@@ -177,15 +177,15 @@ A component which handles creating and controlling one EntityResource object.
 
 #### Delegates
 
-1. `OnResourceValueDecreased` - called when `Value` was successfully decreased;
-2. `OnResourceValueIncreased` - called when `Value` was successfully increased;
-3. `OnResourceValueZero` - called when `Value` has reached zero;
-4. `OnResourceMaxValueDecreased` - called when `MaxValue` was successfully decreased;
-5. `OnResourceMaxValueIncreased` - called when `MaxValue` was successfully increased;
-6. `OnResourceAutoDecreaseStarted` - called when auto decrease was started;
-7. `OnResourceAutoIncreaseStrated` - called when auto increase was started;
-8. `OnResourceAutoDecreaseStopped` - called when auto decrease was stopped;
-9. `OnResourceAutoIncreaseStopped` - called when auto increase was stopped;
+1. `OnValueDecreased` - called when `Value` was successfully decreased;
+2. `OnValueIncreased` - called when `Value` was successfully increased;
+3. `OnValueZero` - called when `Value` has reached zero;
+4. `OnMaxValueDecreased` - called when `MaxValue` was successfully decreased;
+5. `OnMaxValueIncreased` - called when `MaxValue` was successfully increased;
+6. `OnAutoDecreaseStarted` - called when auto decrease was started;
+7. `OnAutoIncreaseStrated` - called when auto increase was started;
+8. `OnAutoDecreaseStopped` - called when auto decrease was stopped;
+9. `OnAutoIncreaseStopped` - called when auto increase was stopped;
 
 ### SimpleResourceComponent
 
@@ -212,11 +212,11 @@ A component which handles creating and controlling one SimpleEntityResource obje
 
 #### Delegates
 
-1. `OnResourceValueDecreased` - called when `Value` was successfully decreased;
-2. `OnResourceValueIncreased` - called when `Value` was successfully increased;
-3. `OnResourceValueZero` - called when `Value` has reached zero;
-4. `OnResourceMaxValueDecreased` - called when `MaxValue` was successfully decreased;
-5. `OnResourceMaxValueIncreased` - called when `MaxValue` was successfully increased;
+1. `OnValueDecreased` - called when `Value` was successfully decreased;
+2. `OnValueIncreased` - called when `Value` was successfully increased;
+3. `OnValueZero` - called when `Value` has reached zero;
+4. `OnMaxValueDecreased` - called when `MaxValue` was successfully decreased;
+5. `OnMaxValueIncreased` - called when `MaxValue` was successfully increased;
 
 ## Quick setup
 
