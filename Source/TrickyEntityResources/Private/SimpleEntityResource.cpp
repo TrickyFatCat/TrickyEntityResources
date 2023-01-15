@@ -7,11 +7,11 @@ USimpleEntityResource::USimpleEntityResource()
 {
 }
 
-void USimpleEntityResource::DecreaseValue(const int32 Amount)
+bool USimpleEntityResource::DecreaseValue(const int32 Amount)
 {
 	if (Amount <= 0)
 	{
-		return;
+		return false;
 	}
 	
 	ResourceData.Value -= Amount;
@@ -22,13 +22,15 @@ void USimpleEntityResource::DecreaseValue(const int32 Amount)
 	{
 		OnValueZero.Broadcast();
 	}
+
+	return true;
 }
 
-void USimpleEntityResource::IncreaseValue(const int32 Amount, bool bClampToMax)
+bool USimpleEntityResource::IncreaseValue(const int32 Amount, bool bClampToMax)
 {
 	if (Amount <= 0)
 	{
-		return;
+		return false;
 	}
 	
 	ResourceData.Value += Amount;
@@ -39,13 +41,14 @@ void USimpleEntityResource::IncreaseValue(const int32 Amount, bool bClampToMax)
 	}
 
 	OnValueIncreased.Broadcast(ResourceData.Value, Amount);
+	return true;
 }
 
-void USimpleEntityResource::DecreaseMaxValue(int32 Amount,const bool bClampValue)
+bool USimpleEntityResource::DecreaseMaxValue(int32 Amount,const bool bClampValue)
 {
 	if (Amount <= 0)
 	{
-		return;
+		return false;
 	}
 
 	ResourceData.MaxValue -= Amount;
@@ -57,13 +60,15 @@ void USimpleEntityResource::DecreaseMaxValue(int32 Amount,const bool bClampValue
 		Amount = FMath::Abs(ResourceData.MaxValue - ResourceData.Value);
 		DecreaseValue(Amount);
 	}
+
+	return true;
 }
 
-void USimpleEntityResource::IncreaseMaxValue(int32 Amount, const bool bClampValue)
+bool USimpleEntityResource::IncreaseMaxValue(int32 Amount, const bool bClampValue)
 {
 	if (Amount <= 0)
 	{
-		return;
+		return false;
 	}
 
 	ResourceData.MaxValue += Amount;
@@ -74,6 +79,8 @@ void USimpleEntityResource::IncreaseMaxValue(int32 Amount, const bool bClampValu
 		Amount = FMath::Abs(ResourceData.MaxValue - ResourceData.Value);
 		IncreaseValue(Amount);
 	}
+
+	return true;
 }
 
 float USimpleEntityResource::GetNormalisedValue() const

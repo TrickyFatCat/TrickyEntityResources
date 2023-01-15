@@ -99,25 +99,25 @@ public:
 	 * Decreases value.
 	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|SimpleEntityResource")
-	void DecreaseValue(const int32 Amount);
+	bool DecreaseValue(const int32 Amount);
 
 	/**
 	 * Increases value. If ClampToMax == true, it'll be clamped to MaxValue.
 	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|SimpleEntityResource")
-	void IncreaseValue(const int32 Amount, bool bClampToMax = true);
+	bool IncreaseValue(const int32 Amount, bool bClampToMax = true);
 
 	/**
 	 * Decreases MaxValue. If ClampValue == true and Value > MaxValue, Value will be clamped to MaxValue.
 	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|SimpleEntityResource")
-	void DecreaseMaxValue(int32 Amount, const bool bClampValue = true);
+	bool DecreaseMaxValue(int32 Amount, const bool bClampValue = true);
 
 	/**
 	 * Increases MaxValue. If ClampValue == true and Value < MaxValue, Value will be clamped to MaxValue.
 	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|SimpleEntityResource")
-	void IncreaseMaxValue(int32 Amount, const bool bClampValue = false);
+	bool IncreaseMaxValue(int32 Amount, const bool bClampValue = false);
 
 	/**
 	 * Returns normalised Value.
