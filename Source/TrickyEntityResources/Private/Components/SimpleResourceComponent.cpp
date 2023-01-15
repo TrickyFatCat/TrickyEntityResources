@@ -25,11 +25,11 @@ void USimpleResourceComponent::InitializeComponent()
 		}
 
 		ResourceObject->SetResourceData(ResourceData);
-		ResourceObject->OnValueDecreased.AddDynamic(this, &USimpleResourceComponent::OnValueDecreased);
-		ResourceObject->OnValueIncreased.AddDynamic(this, &USimpleResourceComponent::OnValueIncreased);
-		ResourceObject->OnValueZero.AddDynamic(this, &USimpleResourceComponent::OnValueZero);
-		ResourceObject->OnMaxValueDecreased.AddDynamic(this, &USimpleResourceComponent::OnMaxValueDecreased);
-		ResourceObject->OnMaxValueIncreased.AddDynamic(this, &USimpleResourceComponent::OnMaxValueIncreased);
+		ResourceObject->OnValueDecreased.AddDynamic(this, &USimpleResourceComponent::HandleValueDecrease);
+		ResourceObject->OnValueIncreased.AddDynamic(this, &USimpleResourceComponent::HandleValueIncrease);
+		ResourceObject->OnValueZero.AddDynamic(this, &USimpleResourceComponent::HandleValueZero);
+		ResourceObject->OnMaxValueDecreased.AddDynamic(this, &USimpleResourceComponent::HandleMaxValueDecrease);
+		ResourceObject->OnMaxValueIncreased.AddDynamic(this, &USimpleResourceComponent::HandleMaxValueIncrease);
 	}
 }
 
@@ -103,30 +103,30 @@ float USimpleResourceComponent::GetNormalisedValue() const
 	return ResourceObject->GetNormalisedValue();
 }
 
-void USimpleResourceComponent::OnValueDecreased(const int32 NewValue, const int32 Amount)
+void USimpleResourceComponent::HandleValueDecrease(const int32 NewValue, const int32 Amount)
 {
 	ResourceData.Value = NewValue;
 	OnResourceValueDecreased.Broadcast(NewValue, Amount);
 }
 
-void USimpleResourceComponent::OnValueIncreased(const int32 NewValue, const int32 Amount)
+void USimpleResourceComponent::HandleValueIncrease(const int32 NewValue, const int32 Amount)
 {
 	ResourceData.Value = NewValue;
 	OnResourceValueIncreased.Broadcast(NewValue, Amount);
 }
 
-void USimpleResourceComponent::OnValueZero()
+void USimpleResourceComponent::HandleValueZero()
 {
 	OnResourceValueZero.Broadcast();
 }
 
-void USimpleResourceComponent::OnMaxValueDecreased(const int32 NewMaxValue, const int32 Amount)
+void USimpleResourceComponent::HandleMaxValueDecrease(const int32 NewMaxValue, const int32 Amount)
 {
 	ResourceData.MaxValue = NewMaxValue;
 	OnResourceMaxValueDecreased.Broadcast(NewMaxValue, Amount);
 }
 
-void USimpleResourceComponent::OnMaxValueIncreased(const int32 NewMaxValue, const int32 Amount)
+void USimpleResourceComponent::HandleMaxValueIncrease(const int32 NewMaxValue, const int32 Amount)
 {
 	ResourceData.MaxValue = NewMaxValue;
 	OnResourceMaxValueIncreased.Broadcast(NewMaxValue, Amount);

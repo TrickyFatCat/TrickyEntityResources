@@ -102,17 +102,17 @@ private:
 	FSimpleResourceData ResourceData;
 
 	UFUNCTION()
-	void OnValueDecreased(const int32 NewValue, const int32 Amount);
+	void HandleValueDecrease(const int32 NewValue, const int32 Amount);
 	
 	UFUNCTION()
-	void OnValueIncreased(const int32 NewValue, const int32 Amount);
+	void HandleValueIncrease(const int32 NewValue, const int32 Amount);
 
 	UFUNCTION()
-	void OnValueZero();
+	void HandleValueZero();
 
 	UFUNCTION()
-	void OnMaxValueDecreased(const int32 NewMaxValue, const int32 Amount);
+	void HandleMaxValueDecrease(const int32 NewMaxValue, const int32 Amount);
 
 	UFUNCTION()
-	void OnMaxValueIncreased(const int32 NewMaxValue, const int32 Amount);
+	void HandleMaxValueIncrease(const int32 NewMaxValue, const int32 Amount);
 };

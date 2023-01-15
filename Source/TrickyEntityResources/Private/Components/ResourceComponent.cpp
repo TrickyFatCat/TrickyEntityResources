@@ -27,15 +27,15 @@ void UResourceComponent::InitializeComponent()
 		ResourceObject->SetAutoDecreaseData(AutoDecreaseData);
 		ResourceObject->SetAutoIncreaseData(AutoIncreaseData);
 
-		ResourceObject->OnValueDecreased.AddDynamic(this, &UResourceComponent::OnValueDecreased);
-		ResourceObject->OnValueIncreased.AddDynamic(this, &UResourceComponent::OnValueIncreased);
-		ResourceObject->OnValueZero.AddDynamic(this, &UResourceComponent::OnValueZero);
-		ResourceObject->OnMaxValueDecreased.AddDynamic(this, &UResourceComponent::OnMaxValueDecreased);
-		ResourceObject->OnMaxValueIncreased.AddDynamic(this, &UResourceComponent::OnMaxValueIncreased);
-		ResourceObject->OnAutoDecreaseStarted.AddDynamic(this, &UResourceComponent::OnAutoDecreaseStarted);
-		ResourceObject->OnAutoIncreaseStarted.AddDynamic(this, &UResourceComponent::OnAutoIncreaseStarted);
-		ResourceObject->OnAutoDecreaseStopped.AddDynamic(this, &UResourceComponent::OnAutoDecreaseStopped);
-		ResourceObject->OnAutoIncreaseStopped.AddDynamic(this, &UResourceComponent::OnAutoIncreaseStopped);
+		ResourceObject->OnValueDecreased.AddDynamic(this, &UResourceComponent::HandleValueDecrease);
+		ResourceObject->OnValueIncreased.AddDynamic(this, &UResourceComponent::HandleValueIncrease);
+		ResourceObject->OnValueZero.AddDynamic(this, &UResourceComponent::HandleValueZero);
+		ResourceObject->OnMaxValueDecreased.AddDynamic(this, &UResourceComponent::HandleMaxValueDecrease);
+		ResourceObject->OnMaxValueIncreased.AddDynamic(this, &UResourceComponent::HandleMaxValueIncrease);
+		ResourceObject->OnAutoDecreaseStarted.AddDynamic(this, &UResourceComponent::HandleAutoDecreaseStart);
+		ResourceObject->OnAutoIncreaseStarted.AddDynamic(this, &UResourceComponent::HandleAutoIncreaseStart);
+		ResourceObject->OnAutoDecreaseStopped.AddDynamic(this, &UResourceComponent::HandleAutoDecreaseStop);
+		ResourceObject->OnAutoIncreaseStopped.AddDynamic(this, &UResourceComponent::HandleAutoIncreaseStop);
 
 		if (GetNormalisedValue() >= AutoDecreaseData.Threshold)
 		{
@@ -227,51 +227,51 @@ bool UResourceComponent::StopAutoIncrease() const
 	return ResourceObject->StopAutoIncrease();
 }
 
-void UResourceComponent::OnValueDecreased(const float NewValue, const float Amount)
+void UResourceComponent::HandleValueDecrease(const float NewValue, const float Amount)
 {
 	ResourceData.Value = NewValue;
-	OnResourceValueDecreased.Broadcast(NewValue, Amount);
+	OnValueDecreased.Broadcast(NewValue, Amount);
 }
 
-void UResourceComponent::OnValueIncreased(const float NewValue, const float Amount)
+void UResourceComponent::HandleValueIncrease(const float NewValue, const float Amount)
 {
 	ResourceData.Value = NewValue;
-	OnResourceValueIncreased.Broadcast(NewValue, Amount);
+	OnValueIncreased.Broadcast(NewValue, Amount);
 }
 
-void UResourceComponent::OnValueZero()
+void UResourceComponent::HandleValueZero()
 {
-	OnResourceValueZero.Broadcast();
+	OnValueZero.Broadcast();
 }
 
-void UResourceComponent::OnMaxValueDecreased(const float NewValue, const float Amount)
-{
-	ResourceData.MaxValue = NewValue;
-	OnResourceMaxValueDecreased.Broadcast(NewValue, Amount);
-}
-
-void UResourceComponent::OnMaxValueIncreased(const float NewValue, const float Amount)
+void UResourceComponent::HandleMaxValueDecrease(const float NewValue, const float Amount)
 {
 	ResourceData.MaxValue = NewValue;
-	OnResourceMaxValueIncreased.Broadcast(NewValue, Amount);
+	OnMaxValueDecreased.Broadcast(NewValue, Amount);
 }
 
-void UResourceComponent::OnAutoDecreaseStarted()
+void UResourceComponent::HandleMaxValueIncrease(const float NewValue, const float Amount)
 {
-	OnResourceAutoDecreaseStarted.Broadcast();
+	ResourceData.MaxValue = NewValue;
+	OnMaxValueIncreased.Broadcast(NewValue, Amount);
 }
 
-void UResourceComponent::OnAutoIncreaseStarted()
+void UResourceComponent::HandleAutoDecreaseStart()
 {
-	OnResourceAutoIncreaseStarted.Broadcast();
+	OnAutoDecreaseStarted.Broadcast();
 }
 
-void UResourceComponent::OnAutoDecreaseStopped()
+void UResourceComponent::HandleAutoIncreaseStart()
 {
-	OnResourceAutoDecreaseStopped.Broadcast();
+	OnAutoIncreaseStarted.Broadcast();
 }
 
-void UResourceComponent::OnAutoIncreaseStopped()
+void UResourceComponent::HandleAutoDecreaseStop()
 {
-	OnResourceAutoIncreaseStopped.Broadcast();
+	OnAutoDecreaseStopped.Broadcast();
+}
+
+void UResourceComponent::HandleAutoIncreaseStop()
+{
+	OnAutoIncreaseStopped.Broadcast();
 }
