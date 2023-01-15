@@ -1,4 +1,4 @@
-﻿// MIT License Copyright (c) 2022 Artyom "Tricky Fat Cat" Volkov
+﻿// MIT License Copyright (c) 2023 Artyom "Tricky Fat Cat" Volkov
 
 
 #include "Components/SimpleResourceComponent.h"
@@ -106,28 +106,28 @@ float USimpleResourceComponent::GetNormalisedValue() const
 void USimpleResourceComponent::HandleValueDecrease(const int32 NewValue, const int32 Amount)
 {
 	ResourceData.Value = NewValue;
-	OnResourceValueDecreased.Broadcast(NewValue, Amount);
+	OnValueDecreased.Broadcast(NewValue, Amount);
 }
 
 void USimpleResourceComponent::HandleValueIncrease(const int32 NewValue, const int32 Amount)
 {
 	ResourceData.Value = NewValue;
-	OnResourceValueIncreased.Broadcast(NewValue, Amount);
+	OnValueIncreased.Broadcast(NewValue, Amount);
 }
 
 void USimpleResourceComponent::HandleValueZero()
 {
-	OnResourceValueZero.Broadcast();
+	OnValueZero.Broadcast();
 }
 
 void USimpleResourceComponent::HandleMaxValueDecrease(const int32 NewMaxValue, const int32 Amount)
 {
 	ResourceData.MaxValue = NewMaxValue;
-	OnResourceMaxValueDecreased.Broadcast(NewMaxValue, Amount);
+	OnValueDecreased.Broadcast(NewMaxValue, Amount);
 }
 
 void USimpleResourceComponent::HandleMaxValueIncrease(const int32 NewMaxValue, const int32 Amount)
 {
 	ResourceData.MaxValue = NewMaxValue;
-	OnResourceMaxValueIncreased.Broadcast(NewMaxValue, Amount);
+	OnValueIncreased.Broadcast(NewMaxValue, Amount);
 }
