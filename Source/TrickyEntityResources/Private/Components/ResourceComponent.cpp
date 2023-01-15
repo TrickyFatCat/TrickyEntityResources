@@ -7,11 +7,17 @@
 UResourceComponent::UResourceComponent()
 {
 	PrimaryComponentTick.bCanEverTick = false;
+	bWantsInitializeComponent = true;
 }
 
-void UResourceComponent::BeginPlay()
+void UResourceComponent::InitializeComponent()
 {
-	Super::BeginPlay();
+	Super::InitializeComponent();
+
+	if (ResourceObject)
+	{
+		return;
+	}
 
 	ResourceObject = NewObject<UEntityResource>(this);
 
@@ -30,12 +36,12 @@ void UResourceComponent::BeginPlay()
 		ResourceObject->OnAutoIncreaseStarted.AddDynamic(this, &UResourceComponent::OnAutoIncreaseStarted);
 		ResourceObject->OnAutoDecreaseStopped.AddDynamic(this, &UResourceComponent::OnAutoDecreaseStopped);
 		ResourceObject->OnAutoIncreaseStopped.AddDynamic(this, &UResourceComponent::OnAutoIncreaseStopped);
-		
+
 		if (GetNormalisedValue() >= AutoDecreaseData.Threshold)
 		{
 			ResourceObject->StartAutoDecrease();
 		}
-		
+
 		if (GetNormalisedValue() <= AutoIncreaseData.Threshold)
 		{
 			ResourceObject->StartAutoIncrease();
