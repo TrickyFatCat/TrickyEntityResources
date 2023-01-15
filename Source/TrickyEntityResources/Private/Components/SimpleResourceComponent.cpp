@@ -8,17 +8,22 @@
 USimpleResourceComponent::USimpleResourceComponent()
 {
 	PrimaryComponentTick.bCanEverTick = false;
+	bWantsInitializeComponent = true;
 }
 
-
-void USimpleResourceComponent::BeginPlay()
+void USimpleResourceComponent::InitializeComponent()
 {
-	Super::BeginPlay();
+	Super::InitializeComponent();
 
-	ResourceObject = NewObject<USimpleEntityResource>(this);
-
-	if (ResourceObject)
+	if (!ResourceObject)
 	{
+		ResourceObject = NewObject<USimpleEntityResource>(this);
+
+		if (!ResourceObject)
+		{
+			return;
+		}
+
 		ResourceObject->SetResourceData(ResourceData);
 		ResourceObject->OnValueDecreased.AddDynamic(this, &USimpleResourceComponent::OnValueDecreased);
 		ResourceObject->OnValueIncreased.AddDynamic(this, &USimpleResourceComponent::OnValueIncreased);
@@ -34,7 +39,7 @@ void USimpleResourceComponent::DecreaseValue(const int32 Amount)
 	{
 		return;
 	}
-	
+
 	ResourceObject->DecreaseValue(Amount);
 }
 
@@ -44,7 +49,7 @@ void USimpleResourceComponent::IncreaseValue(const int32 Amount, const bool bCla
 	{
 		return;
 	}
-	
+
 	ResourceObject->IncreaseValue(Amount, bClampToMax);
 }
 
@@ -126,4 +131,3 @@ void USimpleResourceComponent::OnMaxValueIncreased(const int32 NewMaxValue, cons
 	ResourceData.MaxValue = NewMaxValue;
 	OnResourceMaxValueIncreased.Broadcast(NewMaxValue, Amount);
 }
-

@@ -1,4 +1,4 @@
-﻿// MIT License Copyright (c) 2022 Artyom "Tricky Fat Cat" Volkov
+﻿// MIT License Copyright (c) 2022-2023 Artyom "Tricky Fat Cat" Volkov
 
 #pragma once
 
@@ -19,8 +19,8 @@ public:
 	USimpleResourceComponent();
 
 protected:
-	virtual void BeginPlay() override;
-
+	virtual void InitializeComponent() override;
+	
 public:
 	/**
 	 * Called when Value was successfully decreased.
@@ -93,6 +93,7 @@ public:
 	 */
 	UFUNCTION(BlueprintPure, Category="TrickyEntityResources|SimpleResourceComponent")
 	float GetNormalisedValue() const;
+	
 private:
 	UPROPERTY()
 	USimpleEntityResource* ResourceObject = nullptr;
