@@ -33,44 +33,44 @@ void USimpleResourceComponent::InitializeComponent()
 	}
 }
 
-void USimpleResourceComponent::DecreaseValue(const int32 Amount)
+bool USimpleResourceComponent::DecreaseValue(const int32 Amount)
 {
 	if (!ResourceObject)
 	{
-		return;
+		return false;
 	}
 
-	ResourceObject->DecreaseValue(Amount);
+	return ResourceObject->DecreaseValue(Amount);
 }
 
-void USimpleResourceComponent::IncreaseValue(const int32 Amount, const bool bClampToMax)
+bool USimpleResourceComponent::IncreaseValue(const int32 Amount, const bool bClampToMax)
 {
 	if (!ResourceObject)
 	{
-		return;
+		return false;
 	}
 
-	ResourceObject->IncreaseValue(Amount, bClampToMax);
+	return ResourceObject->IncreaseValue(Amount, bClampToMax);
 }
 
-void USimpleResourceComponent::DecreaseMaxValue(int32 Amount, const bool bClampValue)
+bool USimpleResourceComponent::DecreaseMaxValue(int32 Amount, const bool bClampValue)
 {
 	if (!ResourceObject)
 	{
-		return;
+		return false;
 	}
 
-	ResourceObject->DecreaseMaxValue(Amount, bClampValue);
+	return ResourceObject->DecreaseMaxValue(Amount, bClampValue);
 }
 
-void USimpleResourceComponent::IncreaseMaxValue(int32 Amount, const bool bClampValue)
+bool USimpleResourceComponent::IncreaseMaxValue(int32 Amount, const bool bClampValue)
 {
 	if (!ResourceObject)
 	{
-		return;
+		return false;
 	}
 
-	ResourceObject->IncreaseMaxValue(Amount, bClampValue);
+	return ResourceObject->IncreaseMaxValue(Amount, bClampValue);
 }
 
 int32 USimpleResourceComponent::GetValue() const
