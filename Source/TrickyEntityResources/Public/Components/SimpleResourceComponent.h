@@ -26,31 +26,31 @@ public:
 	 * Called when Value was successfully decreased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|SimpleResourceComponent")
-	FOnSimpleResourceValueDecreasedSignature OnResourceValueDecreased;
+	FOnSimpleResourceValueDecreasedSignature OnValueDecreased;
 
 	/**
 	 * Called when Value was successfully increased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|SimpleResourceComponent")
-	FOnSimpleResourceValueIncreasedSignature OnResourceValueIncreased;
+	FOnSimpleResourceValueIncreasedSignature OnValueIncreased;
 
 	/**
 	 * Called when Value reached zero.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|SimpleResourceComponent")
-	FOnSimpleResourceZeroValueSignature OnResourceValueZero;
+	FOnSimpleResourceZeroValueSignature OnValueZero;
 	
 	/**
 	 * Called when MaxValue was successfully decreased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|SimpleResourceComponent")
-	FOnSimpleResourceMaxValueDecreasedSignature OnResourceMaxValueDecreased;
+	FOnSimpleResourceMaxValueDecreasedSignature OnMaxValueDecreased;
 
 	/**
 	 * Called when MaxValue was successfully increased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|SimpleResourceComponent")
-	FOnSimpleResourceMaxValueIncreasedSignature OnResourceMaxValueIncreased;
+	FOnSimpleResourceMaxValueIncreasedSignature OnMaxValueIncreased;
 	
 	/**
 	 * Decreases value.
