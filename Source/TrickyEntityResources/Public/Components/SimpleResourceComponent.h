@@ -1,4 +1,4 @@
-﻿// MIT License Copyright (c) 2022-2023 Artyom "Tricky Fat Cat" Volkov
+﻿// MIT License Copyright (c) 2023 Artyom "Tricky Fat Cat" Volkov
 
 #pragma once
 
