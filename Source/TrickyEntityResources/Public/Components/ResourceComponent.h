@@ -22,10 +22,6 @@ protected:
 	virtual void InitializeComponent() override;
 
 public:
-	virtual void TickComponent(float DeltaTime,
-	                           ELevelTick TickType,
-	                           FActorComponentTickFunction* ThisTickFunction) override;
-
 	/**
 	 * Called when Value was successfully decreased.
 	 */
@@ -84,25 +80,25 @@ public:
 	 * Decreases Value and clamps it to zero.
 	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|ResourceComponent")
-	void DecreaseValue(const float Amount) const;
+	bool DecreaseValue(const float Amount) const;
 
 	/** 
 	 * Increases Value. If ClampToMax == true, the Value will be clamped to MaxValue.
 	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|ResourceComponent")
-	void IncreaseValue(const float Amount, const bool bClampToMax = true) const;
+	bool IncreaseValue(const float Amount, const bool bClampToMax = true) const;
 
 	/**
 	 * Decreases MaxValue. If ClampValue == true and Value > MaxValue, Value will be clamped to MaxValue.
 	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|ResourceComponent")
-	void DecreaseMaxValue(float Amount, const bool bClampValue = true) const;
+	bool DecreaseMaxValue(float Amount, const bool bClampValue = true) const;
 
 	/**
 	 * Increases MaxValue. If ClampValue == true and Value < MaxValue, Value will be clamped to MaxValue.
 	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|ResourceComponent")
-	void IncreaseMaxValue(float Amount, const bool bClampValue = false) const;
+	bool IncreaseMaxValue(float Amount, const bool bClampValue = false) const;
 
 	/**
 	 * Returns value.
@@ -150,25 +146,25 @@ public:
 	 * Starts auto decrease.
 	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|ResourceComponent")
-	void StartAutoDecrease() const;
+	bool StartAutoDecrease() const;
 
 	/**
 	 * Starts auto increase.
 	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|ResourceComponent")
-	void StartAutoIncrease() const;
+	bool StartAutoIncrease() const;
 
 	/**
 	 * Stops auto decrease.
 	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|ResourceComponent")
-	void StopAutoDecrease() const;
+	bool StopAutoDecrease() const;
 
 	/**
 	 * Stops auto increase.
 	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|ResourceComponent")
-	void StopAutoIncrease() const;
+	bool StopAutoIncrease() const;
 private:
 	UPROPERTY()
 	UEntityResource* ResourceObject = nullptr;

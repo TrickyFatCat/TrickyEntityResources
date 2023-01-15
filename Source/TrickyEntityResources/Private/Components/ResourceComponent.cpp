@@ -49,51 +49,44 @@ void UResourceComponent::InitializeComponent()
 	}
 }
 
-void UResourceComponent::TickComponent(float DeltaTime,
-                                       ELevelTick TickType,
-                                       FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-}
-
-void UResourceComponent::DecreaseValue(const float Amount) const
+bool UResourceComponent::DecreaseValue(const float Amount) const
 {
 	if (!ResourceObject)
 	{
-		return;
+		return false;
 	}
 
-	ResourceObject->DecreaseValue(Amount);
+	return ResourceObject->DecreaseValue(Amount);
 }
 
-void UResourceComponent::IncreaseValue(const float Amount, const bool bClampToMax) const
+bool UResourceComponent::IncreaseValue(const float Amount, const bool bClampToMax) const
 {
 	if (!ResourceObject)
 	{
-		return;
+		return false;
 	}
 
-	ResourceObject->IncreaseValue(Amount, bClampToMax);
+	return ResourceObject->IncreaseValue(Amount, bClampToMax);
 }
 
-void UResourceComponent::DecreaseMaxValue(const float Amount, const bool bClampValue) const
+bool UResourceComponent::DecreaseMaxValue(const float Amount, const bool bClampValue) const
 {
 	if (!ResourceObject)
 	{
-		return;
+		return false;
 	}
 
-	ResourceObject->DecreaseMaxValue(Amount, bClampValue);
+	return ResourceObject->DecreaseMaxValue(Amount, bClampValue);
 }
 
-void UResourceComponent::IncreaseMaxValue(const float Amount, const bool bClampValue) const
+bool UResourceComponent::IncreaseMaxValue(const float Amount, const bool bClampValue) const
 {
 	if (!ResourceObject)
 	{
-		return;
+		return false;
 	}
 
-	ResourceObject->IncreaseMaxValue(Amount, bClampValue);
+	return ResourceObject->IncreaseMaxValue(Amount, bClampValue);
 }
 
 float UResourceComponent::GetValue() const
@@ -194,44 +187,44 @@ void UResourceComponent::SetAutoIncreaseData(const FResourceAutoData& Data)
 	ResourceObject->SetAutoDecreaseData(AutoIncreaseData);
 }
 
-void UResourceComponent::StartAutoDecrease() const
+bool UResourceComponent::StartAutoDecrease() const
 {
 	if (!ResourceObject)
 	{
-		return;
+		return false;
 	}
 
-	ResourceObject->StartAutoDecrease();
+	return ResourceObject->StartAutoDecrease();
 }
 
-void UResourceComponent::StartAutoIncrease() const
+bool UResourceComponent::StartAutoIncrease() const
 {
 	if (!ResourceObject)
 	{
-		return;
+		return false;
 	}
 
-	ResourceObject->StartAutoIncrease();
+	return ResourceObject->StartAutoIncrease();
 }
 
-void UResourceComponent::StopAutoDecrease() const
+bool UResourceComponent::StopAutoDecrease() const
 {
 	if (!ResourceObject)
 	{
-		return;
+		return false;
 	}
 
-	ResourceObject->StopAutoDecrease();
+	return ResourceObject->StopAutoDecrease();
 }
 
-void UResourceComponent::StopAutoIncrease() const
+bool UResourceComponent::StopAutoIncrease() const
 {
 	if (!ResourceObject)
 	{
-		return;
+		return false;
 	}
 
-	ResourceObject->StopAutoIncrease();
+	return ResourceObject->StopAutoIncrease();
 }
 
 void UResourceComponent::OnValueDecreased(const float NewValue, const float Amount)

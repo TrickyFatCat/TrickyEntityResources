@@ -14,11 +14,11 @@ UEntityResource::UEntityResource()
 {
 }
 
-void UEntityResource::DecreaseValue(const float Amount)
+bool UEntityResource::DecreaseValue(const float Amount)
 {
 	if (Amount <= 0.f)
 	{
-		return;
+		return false;
 	}
 
 	ResourceData.Value -= Amount;
@@ -48,13 +48,15 @@ void UEntityResource::DecreaseValue(const float Amount)
 	{
 		StopAutoDecrease();
 	}
+
+	return true;
 }
 
-void UEntityResource::IncreaseValue(const float Amount, const bool bClampToMax)
+bool UEntityResource::IncreaseValue(const float Amount, const bool bClampToMax)
 {
 	if (Amount <= 0.f)
 	{
-		return;
+		return false;
 	}
 
 	ResourceData.Value += Amount;
@@ -71,13 +73,15 @@ void UEntityResource::IncreaseValue(const float Amount, const bool bClampToMax)
 	{
 		StopAutoIncrease();
 	}
+
+	return true;
 }
 
-void UEntityResource::DecreaseMaxValue(float Amount, const bool bClampValue)
+bool UEntityResource::DecreaseMaxValue(float Amount, const bool bClampValue)
 {
 	if (Amount <= 0.f)
 	{
-		return;
+		return false;
 	}
 
 	ResourceData.MaxValue -= Amount;
@@ -89,13 +93,15 @@ void UEntityResource::DecreaseMaxValue(float Amount, const bool bClampValue)
 		Amount = FMath::Abs(ResourceData.MaxValue - ResourceData.Value);
 		DecreaseValue(Amount);
 	}
+
+	return true;
 }
 
-void UEntityResource::IncreaseMaxValue(float Amount, const bool bClampValue)
+bool UEntityResource::IncreaseMaxValue(float Amount, const bool bClampValue)
 {
 	if (Amount <= 0.f)
 	{
-		return;
+		return false;
 	}
 
 	ResourceData.MaxValue += Amount;
@@ -110,6 +116,8 @@ void UEntityResource::IncreaseMaxValue(float Amount, const bool bClampValue)
 	{
 		ResourceData.Value > ResourceData.MaxValue ? StartAutoDecrease() : StartAutoIncrease();
 	}
+
+	return true;
 }
 
 float UEntityResource::GetNormalisedValue() const
@@ -181,11 +189,11 @@ void UEntityResource::GetAutoDecreaseData(FResourceAutoData& Data)
 	Data = AutoDecreaseData;
 }
 
-void UEntityResource::StartAutoDecrease()
+bool UEntityResource::StartAutoDecrease()
 {
 	if (!AutoDecreaseData.bIsEnabled || GetNormalisedValue() <= AutoDecreaseData.Threshold || !GetWorld())
 	{
-		return;
+		return false;
 	}
 
 	StopTimer(AutoDecreaseTimer);
@@ -195,13 +203,14 @@ void UEntityResource::StartAutoDecrease()
 	                                       AutoDecreaseData.TickDelay,
 	                                       true,
 	                                       AutoDecreaseData.StartDelay);
+	return true;
 }
 
-void UEntityResource::StartAutoIncrease()
+bool UEntityResource::StartAutoIncrease()
 {
 	if (!AutoIncreaseData.bIsEnabled || GetNormalisedValue() >= AutoIncreaseData.Threshold || !GetWorld())
 	{
-		return;
+		return false;
 	}
 
 	StopTimer(AutoIncreaseTimer);
@@ -211,28 +220,32 @@ void UEntityResource::StartAutoIncrease()
 	                                       AutoIncreaseData.TickDelay,
 	                                       true,
 	                                       AutoIncreaseData.StartDelay);
+
+	return true;
 }
 
-void UEntityResource::StopAutoDecrease()
+bool UEntityResource::StopAutoDecrease()
 {
 	if (!IsTimerActive(AutoDecreaseTimer))
 	{
-		return;
+		return false;
 	}
 
 	StopTimer(AutoDecreaseTimer);
 	OnAutoDecreaseStopped.Broadcast();
+	return true;
 }
 
-void UEntityResource::StopAutoIncrease()
+bool UEntityResource::StopAutoIncrease()
 {
 	if (!IsTimerActive(AutoIncreaseTimer))
 	{
-		return;
+		return false;
 	}
 
 	StopTimer(AutoIncreaseTimer);
 	OnAutoIncreaseStopped.Broadcast();
+	return true;
 }
 
 
