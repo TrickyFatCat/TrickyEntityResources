@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
-	"Version": 2,
-	"VersionName": "1.1",
+	"Version": 3,
+	"VersionName": "2.0a",
 	"FriendlyName": "TrickyEntityResources",
 	"Description": "Collection of game objects which helps to implement health, mana, stamina, overheat etc.",
 	"Category": "TrickyPrototyping",
