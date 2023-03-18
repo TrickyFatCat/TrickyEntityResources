@@ -167,7 +167,7 @@ public:
 	bool StopAutoIncrease() const;
 private:
 	UPROPERTY()
-	UEntityResource* ResourceObject = nullptr;
+	TObjectPtr<UEntityResource> ResourceObject = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Resource", meta=(AllowPrivateAccess))
 	FResourceData ResourceData;

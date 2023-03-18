@@ -96,7 +96,7 @@ public:
 	
 private:
 	UPROPERTY()
-	USimpleEntityResource* ResourceObject = nullptr;
+	TObjectPtr<USimpleEntityResource> ResourceObject = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Resource", meta=(AllowPrivateAccess))
 	FSimpleResourceData ResourceData;
