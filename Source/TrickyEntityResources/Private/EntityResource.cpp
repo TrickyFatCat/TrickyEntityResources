@@ -1,4 +1,4 @@
-﻿// MIT License Copyright (c) 2023 Artyom "Tricky Fat Cat" Volkov
+﻿// MIT License Copyright (c) Artyom "Tricky Fat Cat" Volkov
 
 
 #include "EntityResource.h"
@@ -16,7 +16,7 @@ UEntityResource::UEntityResource()
 
 bool UEntityResource::DecreaseValue(const float Amount)
 {
-	if (Amount <= 0.f)
+	if (Amount <= 0.f || ResourceData.Value <= 0.f)
 	{
 		return false;
 	}
@@ -54,7 +54,7 @@ bool UEntityResource::DecreaseValue(const float Amount)
 
 bool UEntityResource::IncreaseValue(const float Amount, const bool bClampToMax)
 {
-	if (Amount <= 0.f)
+	if (Amount <= 0.f || ResourceData.Value >= ResourceData.MaxValue && bClampToMax)
 	{
 		return false;
 	}
@@ -79,7 +79,7 @@ bool UEntityResource::IncreaseValue(const float Amount, const bool bClampToMax)
 
 bool UEntityResource::DecreaseMaxValue(float Amount, const bool bClampValue)
 {
-	if (Amount <= 0.f)
+	if (Amount <= 0.f || ResourceData.MaxValue <= 0.f)
 	{
 		return false;
 	}
@@ -92,6 +92,10 @@ bool UEntityResource::DecreaseMaxValue(float Amount, const bool bClampValue)
 	{
 		Amount = FMath::Abs(ResourceData.MaxValue - ResourceData.Value);
 		DecreaseValue(Amount);
+	}
+	else
+	{
+		StartAutoDecrease();
 	}
 
 	return true;

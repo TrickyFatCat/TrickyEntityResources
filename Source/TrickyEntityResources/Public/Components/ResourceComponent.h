@@ -1,4 +1,4 @@
-﻿// MIT License Copyright (c) 2023 Artyom "Tricky Fat Cat" Volkov
+﻿// MIT License Copyright (c) Artyom "Tricky Fat Cat" Volkov
 
 #pragma once
 
@@ -26,13 +26,13 @@ public:
 	 * Called when Value was successfully decreased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|ResourceComponent")
-	FOnResourceValueDecreasedSignature OnValueDecreased;
+	FOnResourceValueChangedSignature OnValueDecreased;
 
 	/**
 	 * Called when Value was successfully increased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|ResourceComponent")
-	FOnResourceValueIncreasedSignature OnValueIncreased;
+	FOnResourceValueChangedSignature OnValueIncreased;
 
 	/**
 	 * Called when Value has reached zero.
@@ -44,61 +44,61 @@ public:
 	 * Called when MaxValue was successfully decreased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|ResourceComponent")
-	FOnResourceMaxValueDecreasedSignature OnMaxValueDecreased;
+	FOnResourceValueChangedSignature OnMaxValueDecreased;
 	
 	/**
 	 * Called when MaxValue was successfully increased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|ResourceComponent")
-	FOnResourceMaxValueIncreasedSignature OnMaxValueIncreased;
+	FOnResourceValueChangedSignature OnMaxValueIncreased;
 
 	/**
 	 * Called when auto decrease started.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|ResourceComponent")
-	FOnResourceAutoDecreaseStartedSignature OnAutoDecreaseStarted;
+	FOnResourceAutoChangeToggleSignature OnAutoDecreaseStarted;
 
 	/**
 	 * Called when auto increase started.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|ResourceComponent")
-	FOnResourceAutoIncreaseStartedSignature OnAutoIncreaseStarted;
+	FOnResourceAutoChangeToggleSignature OnAutoIncreaseStarted;
 	
 	/**
 	 * Called when auto decrease stopped.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|ResourceComponent")
-	FOnResourceAutoDecreaseStoppedSignature OnAutoDecreaseStopped;
+	FOnResourceAutoChangeToggleSignature OnAutoDecreaseStopped;
 
 	/**
 	 * Called when auto increase stopped.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|ResourceComponent")
-	FOnResourceAutoIncreaseStoppedSignature OnAutoIncreaseStopped;
+	FOnResourceAutoChangeToggleSignature OnAutoIncreaseStopped;
 	
 	/**
 	 * Decreases Value and clamps it to zero.
 	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|ResourceComponent")
-	bool DecreaseValue(const float Amount) const;
+	bool DecreaseValue(const float Amount);
 
 	/** 
 	 * Increases Value. If ClampToMax == true, the Value will be clamped to MaxValue.
 	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|ResourceComponent")
-	bool IncreaseValue(const float Amount, const bool bClampToMax = true) const;
+	bool IncreaseValue(const float Amount, const bool bClampToMax = true);
 
 	/**
 	 * Decreases MaxValue. If ClampValue == true and Value > MaxValue, Value will be clamped to MaxValue.
 	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|ResourceComponent")
-	bool DecreaseMaxValue(float Amount, const bool bClampValue = true) const;
+	bool DecreaseMaxValue(float Amount, const bool bClampValue = true);
 
 	/**
 	 * Increases MaxValue. If ClampValue == true and Value < MaxValue, Value will be clamped to MaxValue.
 	 */
 	UFUNCTION(BlueprintCallable, Category="TrickyEntityResources|ResourceComponent")
-	bool IncreaseMaxValue(float Amount, const bool bClampValue = false) const;
+	bool IncreaseMaxValue(float Amount, const bool bClampValue = false);
 
 	/**
 	 * Returns value.

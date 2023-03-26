@@ -1,4 +1,4 @@
-﻿// MIT License Copyright (c) 2023 Artyom "Tricky Fat Cat" Volkov
+﻿// MIT License Copyright (c) Artyom "Tricky Fat Cat" Volkov
 
 
 #include "Components/ResourceComponent.h"
@@ -49,7 +49,7 @@ void UResourceComponent::InitializeComponent()
 	}
 }
 
-bool UResourceComponent::DecreaseValue(const float Amount) const
+bool UResourceComponent::DecreaseValue(const float Amount)
 {
 	if (!ResourceObject)
 	{
@@ -59,7 +59,7 @@ bool UResourceComponent::DecreaseValue(const float Amount) const
 	return ResourceObject->DecreaseValue(Amount);
 }
 
-bool UResourceComponent::IncreaseValue(const float Amount, const bool bClampToMax) const
+bool UResourceComponent::IncreaseValue(const float Amount, const bool bClampToMax)
 {
 	if (!ResourceObject)
 	{
@@ -69,7 +69,7 @@ bool UResourceComponent::IncreaseValue(const float Amount, const bool bClampToMa
 	return ResourceObject->IncreaseValue(Amount, bClampToMax);
 }
 
-bool UResourceComponent::DecreaseMaxValue(const float Amount, const bool bClampValue) const
+bool UResourceComponent::DecreaseMaxValue(const float Amount, const bool bClampValue)
 {
 	if (!ResourceObject)
 	{
@@ -79,7 +79,7 @@ bool UResourceComponent::DecreaseMaxValue(const float Amount, const bool bClampV
 	return ResourceObject->DecreaseMaxValue(Amount, bClampValue);
 }
 
-bool UResourceComponent::IncreaseMaxValue(const float Amount, const bool bClampValue) const
+bool UResourceComponent::IncreaseMaxValue(const float Amount, const bool bClampValue)
 {
 	if (!ResourceObject)
 	{

@@ -1,4 +1,4 @@
-﻿// MIT License Copyright (c) 2023 Artyom "Tricky Fat Cat" Volkov
+﻿// MIT License Copyright (c) Artyom "Tricky Fat Cat" Volkov
 
 #pragma once
 
@@ -101,23 +101,11 @@ struct FResourceData
 
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnResourceValueDecreasedSignature, float, NewValue, float, Amount);
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnResourceValueIncreasedSignature, float, NewValue, float, Amount);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnResourceValueChangedSignature, float, NewValue, float, Amount);
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResourceValueZeroSignature);
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnResourceMaxValueDecreasedSignature, float, NewValue, float, Amount);
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnResourceMaxValueIncreasedSignature, float, NewMaxValue, float, Amount);
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResourceAutoDecreaseStartedSignature);
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResourceAutoIncreaseStartedSignature);
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResourceAutoDecreaseStoppedSignature);
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResourceAutoIncreaseStoppedSignature);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResourceAutoChangeToggleSignature);
 
 /**
  * Main entity resource which can automatically increase and decrease current value.
@@ -134,13 +122,13 @@ public:
 	 * Called when Value was successfully decreased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
-	FOnResourceValueDecreasedSignature OnValueDecreased;
+	FOnResourceValueChangedSignature OnValueDecreased;
 
 	/**
 	 * Called when Value was successfully increased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
-	FOnResourceValueIncreasedSignature OnValueIncreased;
+	FOnResourceValueChangedSignature OnValueIncreased;
 
 	/**
 	 * Called when Value has reached zero.
@@ -152,13 +140,13 @@ public:
 	 * Called when MaxValue was successfully decreased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
-	FOnResourceMaxValueDecreasedSignature OnMaxValueDecreased;
+	FOnResourceValueChangedSignature OnMaxValueDecreased;
 
 	/**
 	 * Called when MaxValue was successfully increased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
-	FOnResourceMaxValueIncreasedSignature OnMaxValueIncreased;
+	FOnResourceValueChangedSignature OnMaxValueIncreased;
 
 	/**
 	 * Decreases Value and clamps it to zero.
@@ -215,25 +203,25 @@ public:
 	 * Called when auto decrease started.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
-	FOnResourceAutoDecreaseStartedSignature OnAutoDecreaseStarted;
+	FOnResourceAutoChangeToggleSignature OnAutoDecreaseStarted;
 
 	/**
 	 * Called when auto increase started.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
-	FOnResourceAutoIncreaseStartedSignature OnAutoIncreaseStarted;
+	FOnResourceAutoChangeToggleSignature OnAutoIncreaseStarted;
 
 	/**
 	 * Called when auto decrease stopped.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
-	FOnResourceAutoDecreaseStoppedSignature OnAutoDecreaseStopped;
+	FOnResourceAutoChangeToggleSignature OnAutoDecreaseStopped;
 
 	/**
 	 * Called when auto increase stopped.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|EntityResource")
-	FOnResourceAutoIncreaseStoppedSignature OnAutoIncreaseStopped;
+	FOnResourceAutoChangeToggleSignature OnAutoIncreaseStopped;
 
 	/**
 	 * Toggles auto increase.
