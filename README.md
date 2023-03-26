@@ -1,6 +1,6 @@
 # TrickyEntityResources
 
-A collection of game objects which help to quickly implement health, mana, stamina, overheat etc.
+A collection of game objects and components which help to quickly implement health, mana, stamina, overheat etc.
 
 ## Installation
 
@@ -8,10 +8,10 @@ The plugin can be used in both C++ and Blueprint projects.
 
 ### Blueprint projects
 
-**At the moment, the package is compatible only with Unreal Engine 4.**
-
 1. Download [**package file**](https://github.com/TrickyFatCat/TrickyEntityResources/releases);
-2. Unzip the package to the Plugins folder in engine folder, e.g. `C:\Program Files\Epic Games\UE_4.27\Engine\Plugins`;
+2. Inlall the plugin either in your project or for all projects in engine:
+   * Unzip the package into Plugins folder of your project, e.g. `D:\UnrealProjects\MyProject\Plugins`; 
+   * Unzip the package to the Plugins folder in engine folder, e.g. `C:\Program Files\Epic Games\UE_5.0\Engine\Plugins`;
 3. Restart the project;
 
 In this case the plugin can be used for any blueprint project.
