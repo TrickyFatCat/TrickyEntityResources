@@ -1,4 +1,4 @@
-﻿// MIT License Copyright (c) 2023 Artyom "Tricky Fat Cat" Volkov
+﻿// MIT License Copyright (c) Artyom "Tricky Fat Cat" Volkov
 
 
 #include "SimpleEntityResource.h"
@@ -9,7 +9,7 @@ USimpleEntityResource::USimpleEntityResource()
 
 bool USimpleEntityResource::DecreaseValue(const int32 Amount)
 {
-	if (Amount <= 0)
+	if (Amount <= 0 || ResourceData.Value <= 0)
 	{
 		return false;
 	}
@@ -28,7 +28,7 @@ bool USimpleEntityResource::DecreaseValue(const int32 Amount)
 
 bool USimpleEntityResource::IncreaseValue(const int32 Amount, bool bClampToMax)
 {
-	if (Amount <= 0)
+	if (Amount <= 0 || ResourceData.Value >= ResourceData.MaxValue && bClampToMax)
 	{
 		return false;
 	}
@@ -39,14 +39,14 @@ bool USimpleEntityResource::IncreaseValue(const int32 Amount, bool bClampToMax)
 	{
 		ResourceData.Value = FMath::Min(ResourceData.Value, ResourceData.MaxValue);
 	}
-
+	
 	OnValueIncreased.Broadcast(ResourceData.Value, Amount);
 	return true;
 }
 
 bool USimpleEntityResource::DecreaseMaxValue(int32 Amount,const bool bClampValue)
 {
-	if (Amount <= 0)
+	if (Amount <= 0 || ResourceData.MaxValue <= 0)
 	{
 		return false;
 	}
@@ -77,7 +77,7 @@ bool USimpleEntityResource::IncreaseMaxValue(int32 Amount, const bool bClampValu
 	if (bClampValue && ResourceData.Value < ResourceData.MaxValue)
 	{
 		Amount = FMath::Abs(ResourceData.MaxValue - ResourceData.Value);
-		IncreaseValue(Amount);
+		IncreaseValue(Amount, false);
 	}
 
 	return true;

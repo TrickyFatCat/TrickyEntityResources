@@ -1,4 +1,4 @@
-﻿// MIT License Copyright (c) 2023 Artyom "Tricky Fat Cat" Volkov
+﻿// MIT License Copyright (c) Artyom "Tricky Fat Cat" Volkov
 
 #pragma once
 
@@ -26,13 +26,13 @@ public:
 	 * Called when Value was successfully decreased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|SimpleResourceComponent")
-	FOnSimpleResourceValueDecreasedSignature OnValueDecreased;
+	FOnSimpleResourceValueChangedSignature OnValueDecreased;
 
 	/**
 	 * Called when Value was successfully increased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|SimpleResourceComponent")
-	FOnSimpleResourceValueIncreasedSignature OnValueIncreased;
+	FOnSimpleResourceValueChangedSignature OnValueIncreased;
 
 	/**
 	 * Called when Value reached zero.
@@ -44,13 +44,13 @@ public:
 	 * Called when MaxValue was successfully decreased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|SimpleResourceComponent")
-	FOnSimpleResourceMaxValueDecreasedSignature OnMaxValueDecreased;
+	FOnSimpleResourceValueChangedSignature OnMaxValueDecreased;
 
 	/**
 	 * Called when MaxValue was successfully increased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|SimpleResourceComponent")
-	FOnSimpleResourceMaxValueIncreasedSignature OnMaxValueIncreased;
+	FOnSimpleResourceValueChangedSignature OnMaxValueIncreased;
 	
 	/**
 	 * Decreases value.

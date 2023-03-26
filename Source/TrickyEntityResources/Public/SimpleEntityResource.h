@@ -1,4 +1,4 @@
-﻿// MIT License Copyright (c) 2023 Artyom "Tricky Fat Cat" Volkov
+﻿// MIT License Copyright (c) Artyom "Tricky Fat Cat" Volkov
 
 #pragma once
 
@@ -36,23 +36,9 @@ struct FSimpleResourceData
 	int32 InitialValue = 100;
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnSimpleResourceValueDecreasedSignature, int32, NewValue, int32, Amount);
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnSimpleResourceValueIncreasedSignature, int32, NewValue, int32, Amount);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnSimpleResourceValueChangedSignature, int32, NewValue, int32, Amount);
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSimpleResourceZeroValueSignature);
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnSimpleResourceMaxValueDecreasedSignature,
-                                             int32,
-                                             NewMaxValue,
-                                             int32,
-                                             Amount);
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnSimpleResourceMaxValueIncreasedSignature,
-                                             int32,
-                                             NewMaxValue,
-                                             int32,
-                                             Amount);
 
 /**
  * A simple version of the entity resource. It doesn't have auto increase/decrease functionality and uses int32. 
@@ -69,13 +55,13 @@ public:
 	 * Called when Value was successfully decreased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|SimpleEntityResource")
-	FOnSimpleResourceValueDecreasedSignature OnValueDecreased;
+	FOnSimpleResourceValueChangedSignature OnValueDecreased;
 
 	/**
 	 * Called when Value was successfully increased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|SimpleEntityResource")
-	FOnSimpleResourceValueIncreasedSignature OnValueIncreased;
+	FOnSimpleResourceValueChangedSignature OnValueIncreased;
 
 	/**
 	 * Called when Value reached zero.
@@ -87,13 +73,13 @@ public:
 	 * Called when MaxValue was successfully decreased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|SimpleEntityResource")
-	FOnSimpleResourceMaxValueDecreasedSignature OnMaxValueDecreased;	
+	FOnSimpleResourceValueChangedSignature OnMaxValueDecreased;	
 
 	/**
 	 * Called when MaxValue was successfully increased.
 	 */
 	UPROPERTY(BlueprintAssignable, Category="TrickyEntityResources|SimpleEntityResource")
-	FOnSimpleResourceMaxValueIncreasedSignature OnMaxValueIncreased;
+	FOnSimpleResourceValueChangedSignature OnMaxValueIncreased;
 
 	/**
 	 * Decreases value.
