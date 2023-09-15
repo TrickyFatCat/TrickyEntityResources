@@ -159,14 +159,28 @@ void UEntityResource::SetAutoIncreaseEnabled(const bool bIsEnabled)
 {
 	AutoIncreaseData.bIsEnabled = bIsEnabled;
 
-	bIsEnabled ? StartAutoIncrease() : StopTimer(AutoIncreaseTimer);
+	if (bIsEnabled)
+	{
+		StartAutoIncrease();
+	}
+	else
+	{
+		StopTimer(AutoIncreaseTimer);
+	}
 }
 
 void UEntityResource::SetAutoDecreaseEnabled(const bool bIsEnabled)
 {
 	AutoDecreaseData.bIsEnabled = bIsEnabled;
 
-	bIsEnabled ? StartAutoDecrease() : StopTimer(AutoDecreaseTimer);
+	if (bIsEnabled)
+	{
+		StartAutoDecrease();
+	}
+	else
+	{
+		StopTimer(AutoDecreaseTimer);
+	}
 }
 
 void UEntityResource::SetAutoIncreaseData(const FResourceAutoData& Data)
